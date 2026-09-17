@@ -1,24 +1,30 @@
 /* ==========================================================================
    Sol Cabeleireiros — folha de estilo única
-   Paleta: nude, dourado e preto.  Forma dominante: o arco (a janela por onde
-   entra o sol).  Ritmo: muito ar, uma coisa de cada vez.
+
+   Paleta: preto quente, areia e dourado.  Forma dominante: o arco (a janela
+   por onde entra o sol).  Ritmo: muito ar, uma coisa de cada vez.
+
+   Todas as cores vivem em fichas no :root logo abaixo. O site foi claro até
+   certa altura e passou a escuro trocando só esses valores — se algum dia
+   voltar atrás, é aí que se mexe, e em mais lado nenhum.
    ========================================================================== */
 
 /* ---------- 1. Fichas de cor, tipo e espaço ---------- */
 :root {
-  /* Cor */
-  --areia:        #F6EEE7;  /* fundo da página */
-  --areia-media:  #EFE2D7;  /* secções alternadas */
-  --areia-clara:  #FDF9F5;  /* superfícies levantadas, campos de formulário */
-  --nude:         #E3CDBC;  /* contornos, fios de separação */
-  --nude-fundo:   #EADACB;  /* blocos tonais suaves */
-  --ouro:         #A97E3E;  /* acento — só decoração e texto grande */
-  --ouro-escuro:  #7A5722;  /* acento para texto pequeno (5,7:1 sobre areia) */
-  --ouro-luz:     #D7B778;  /* acento sobre fundo escuro (8,3:1 sobre ónix) */
-  --onix:         #2A211B;  /* preto quente */
-  --onix-fundo:   #211A15;
-  --tinta:        #2B211A;  /* texto corrente */
-  --tinta-suave:  #5C4C3F;  /* texto secundário (7,0:1 sobre areia) */
+  /* Cor — o site inteiro na temática do palco: preto quente por baixo,
+     areia no texto, dourado no acento. Os nomes ficaram os de origem para
+     não se perder o rasto; é só o valor que mudou de lado.               */
+  --areia:        #16110D;  /* fundo da página */
+  --areia-media:  #1D1610;  /* secções alternadas, um degrau acima */
+  --areia-clara:  #241C15;  /* superfícies levantadas, campos de formulário */
+  --nude:         rgba(246, 238, 231, 0.14);  /* contornos, fios */
+  --ouro:         #C9A45E;  /* acento — decoração e texto grande */
+  --ouro-texto:   #E6CB94;  /* acento para texto pequeno */
+  --ouro-luz:     #D7B778;  /* acento em superfícies mais claras */
+  --onix:         #0D0A07;  /* o mais fundo de todos: a faixa da tatuagem */
+  --onix-fundo:   #0A0806;  /* o rodapé */
+  --tinta:        #F6EEE7;  /* texto corrente */
+  --tinta-suave:  #C9B7A4;  /* texto secundário */
 
   /* Tipo */
   --serifada: "Marcellus", "Hoefler Text", Georgia, "Times New Roman", serif;
@@ -92,7 +98,7 @@ a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 
 :focus-visible {
-  outline: 2px solid var(--ouro-escuro);
+  outline: 2px solid var(--ouro-texto);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -115,7 +121,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   transform: translateY(-160%);
   padding: 0.7rem 1.2rem;
   background: var(--onix);
-  color: var(--areia-clara);
+  color: var(--tinta);
   border-radius: var(--raio-pilula);
   text-decoration: none;
   transition: transform var(--transicao);
@@ -350,6 +356,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 .btn:hover::after { transform: translateX(130%); }
 .btn__icone { width: 18px; height: 18px; flex: none; }
 .btn--heroi { height: var(--p-btn-heroi-h); padding: 0 18px; }
+.btn--largo { width: 100%; }
 
 /* Cheio: o dourado do salão no lugar do branco do modelo. */
 .btn--solido {
@@ -481,50 +488,9 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 /* A fita fecha o palco, encostada ao fundo. */
 .palco .fita { position: absolute; left: 0; right: 0; bottom: 0; }
 
-/* ---------- 5. Botões e ligações ---------- */
-.botao {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.95rem 1.9rem;
-  background: var(--onix);
-  color: var(--areia-clara);
-  border: 1px solid var(--onix);
-  border-radius: var(--raio-pilula);
-  font-size: var(--t--1);
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background var(--transicao), color var(--transicao), transform var(--transicao);
-}
-.botao:hover { background: #3A2E25; transform: translateY(-2px); }
-.botao:active { transform: translateY(0); }
-
-.botao--pequeno { padding: 0.6rem 1.3rem; }
-
-/* Um bloco preto cheio sobre o nude grita; um contorno fino diz o mesmo sem
-   levantar a voz, e o sinal do WhatsApp dispensa explicar o que acontece. */
-.botao--contorno {
-  gap: 0.65rem;
-  background: transparent;
-  color: var(--tinta);
-  border-color: var(--onix);
-}
-.botao--contorno:hover { background: var(--onix); color: var(--areia-clara); }
-.botao__icone { width: 19px; height: 19px; flex: none; }
-
-.botao--ouro {
-  background: var(--ouro-luz);
-  border-color: var(--ouro-luz);
-  color: var(--onix);
-}
-.botao--ouro:hover { background: #E4C88F; }
-
-.botao--largo { width: 100%; padding-block: 1.05rem; }
-
+/* ---------- 5. Ligações ---------- */
 .ligacao {
-  color: var(--ouro-escuro);
+  color: var(--ouro-texto);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.3em;
@@ -570,12 +536,12 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 .seccao { padding-block: var(--e-6); }
 .seccao--estreita { padding-block: clamp(3rem, 6vw, 5rem); }
 .seccao--areia { background: var(--areia-media); }
-.seccao--onix { background: var(--onix); color: var(--areia-clara); }
+.seccao--onix { background: var(--onix); color: var(--tinta); }
 
 .seccao__abertura { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 
 .titulo { font-size: var(--t-4); max-width: 18ch; }
-.titulo--claro { color: var(--areia-clara); }
+.titulo--claro { color: var(--tinta); }
 
 .seccao__intro {
   margin-top: var(--e-3);
@@ -612,7 +578,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
   font-family: var(--serifada);
   font-size: var(--t-3);
   line-height: 1.1;
-  color: var(--ouro-escuro);
+  color: var(--ouro-texto);
 }
 .facto__etiqueta {
   font-size: var(--t--1);
@@ -710,7 +676,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(60% 55% at 78% 22%, rgba(215, 183, 120, 0.13), transparent 70%);
+  background: radial-gradient(62% 58% at 78% 20%, rgba(215, 183, 120, 0.2), transparent 70%);
   pointer-events: none;
 }
 
@@ -724,7 +690,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 
 .tatuagem__texto p {
   font-weight: 300;
-  color: color-mix(in srgb, var(--areia-clara) 82%, transparent);
+  color: color-mix(in srgb, var(--tinta) 82%, transparent);
 }
 .tatuagem__texto .titulo { margin-bottom: var(--e-3); }
 
@@ -756,27 +722,34 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
   gap: 0.6rem;
   margin-bottom: var(--e-4);
 }
+/* A mesma pílula do cabeçalho, em ponto pequeno. */
 .filtro {
-  padding: 0.55rem 1.25rem;
-  background: transparent;
+  position: relative;
+  overflow: hidden;
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(105deg, #140F0B 0%, #241B14 48%, #33271C 100%);
   color: var(--tinta-suave);
-  border: var(--fio);
+  border: 1px solid rgba(215, 183, 120, 0.28);
   border-radius: var(--raio-pilula);
   font-size: var(--t--1);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   cursor: pointer;
   transition: background var(--transicao), color var(--transicao), border-color var(--transicao);
 }
-.filtro:hover { border-color: var(--ouro); color: var(--tinta); }
-.filtro--activo {
-  background: var(--onix);
-  border-color: var(--onix);
-  color: var(--areia-clara);
+.filtro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 244, 222, 0.16) 50%, transparent 70%);
+  transition: transform 0.6s ease;
 }
-.filtro--activo:hover {
-  background: #3A2E25;
-  border-color: #3A2E25;
-  color: var(--areia-clara);
+.filtro:hover { border-color: rgba(232, 207, 154, 0.7); color: var(--tinta); }
+.filtro:hover::before { transform: translateX(120%); }
+.filtro--activo {
+  background: linear-gradient(105deg, #3A2C1E 0%, #5A452E 48%, #7A5F3C 100%);
+  border-color: rgba(232, 207, 154, 0.8);
+  color: #FFF6E4;
 }
 
 /* Cada fotografia guarda a sua proporção — quadrada ou 3:4 — em vez de ser
@@ -871,24 +844,24 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 .campo select:focus,
 .campo textarea:focus {
   outline: none;
-  border-color: var(--ouro-escuro);
-  background: var(--areia-clara);
-  box-shadow: 0 0 0 3px rgba(169, 126, 62, 0.16);
+  border-color: var(--ouro-texto);
+  background: #2C2219;
+  box-shadow: 0 0 0 3px rgba(215, 183, 120, 0.22);
 }
 .campo--invalido input,
-.campo--invalido select { border-color: #A2432B; }
+.campo--invalido select { border-color: #E08A6B; }
 
 .formulario__erro {
   grid-column: 1 / -1;
   margin: 0;
   padding: 0.7rem 1rem;
-  background: rgba(162, 67, 43, 0.09);
+  background: rgba(224, 138, 107, 0.14);
   border-radius: 10px;
-  color: #8A3823;
+  color: #F0B9A2;
   font-size: 0.95rem;
 }
 
-.formulario .botao--largo { grid-column: 1 / -1; margin-top: var(--e-1); }
+.formulario .btn--largo { grid-column: 1 / -1; margin-top: var(--e-1); }
 
 .formulario__aviso {
   grid-column: 1 / -1;
@@ -952,7 +925,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
 /* ---------- 15. Rodapé ---------- */
 .rodape {
   background: var(--onix-fundo);
-  color: color-mix(in srgb, var(--areia-clara) 74%, transparent);
+  color: color-mix(in srgb, var(--tinta) 74%, transparent);
   padding-block: var(--e-5);
 }
 .rodape__interior {
@@ -1060,7 +1033,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
   background: var(--areia);
 }
 .visor__figura figcaption {
-  color: var(--areia-clara);
+  color: var(--tinta);
   font-size: var(--t--1);
   letter-spacing: 0.05em;
   text-align: center;
@@ -1073,7 +1046,7 @@ body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) r
   height: 46px;
   flex: none;
   background: rgba(246, 238, 231, 0.1);
-  color: var(--areia-clara);
+  color: var(--tinta);
   border: 1px solid rgba(246, 238, 231, 0.24);
   border-radius: 50%;
   cursor: pointer;

@@ -141,19 +141,30 @@ conversa não se pagar e o retoque até seis meses.
 
 ## Publicar
 
-Qualquer um destes serviços aloja o site de graça:
+O site já traz tudo o que é preciso. Falta uma definição, uma só vez:
+
+**No GitHub:** `Settings` → `Pages` → *Build and deployment* → **Source: GitHub Actions**
+
+Feito isso, o site vai ao ar sozinho e volta a ir a cada alteração. Não há
+passo de compilação: o que está no repositório é o que fica publicado.
+O endereço aparece na página `Settings → Pages` e será algo como
+`https://luizpradov-rgb.github.io/Projeto-portugal-/`.
+
+O que faz isto é `.github/workflows/publicar.yml`.
+
+### Quando houver domínio próprio
+
+1. No GitHub, `Settings → Pages → Custom domain`, escrever o domínio.
+2. No `index.html`, trocar `https://www.solcabeleireiros.pt/` pelo endereço
+   verdadeiro. Aparece em três sítios no topo do ficheiro — `canonical`,
+   `og:url` e `og:image` — e no bloco de dados estruturados, no fim.
+
+### Alternativas, se preferir não usar o GitHub
 
 - **Netlify** — <https://app.netlify.com/drop>: arrastar a pasta para a página.
-  É o caminho mais curto; fica online em segundos.
-- **GitHub Pages** — nas definições do repositório, *Pages*, escolher o ramo
-  e a pasta `/`.
 - **Vercel** — importar o repositório, sem configuração nenhuma.
 
-Depois, no `index.html`, trocar `https://www.solcabeleireiros.pt/` pelo
-endereço verdadeiro (aparece nas linhas `canonical`, `og:url` e `og:image`,
-e no bloco de dados estruturados no fim do ficheiro).
-
----
+Ambos servem o site tal como está, sem alterar nada.
 
 ## Como está organizado
 
@@ -181,7 +192,8 @@ o que evita o problema de RGPD que isso levanta na Europa.
 
 **As cores mudam-se num sítio só.** No topo do `css/style.css`, em `:root`,
 estão todas com nome (`--areia`, `--ouro`, `--onix`). Mudar aí muda a página
-inteira.
+inteira — foi assim que o site passou de claro a escuro, sem tocar em mais
+nada. Voltar atrás é o mesmo trabalho ao contrário.
 
 **O site foi verificado** com leitor de ecrã em mente: funciona só com
 teclado, o contraste do texto cumpre a norma AA em todos os elementos, e
