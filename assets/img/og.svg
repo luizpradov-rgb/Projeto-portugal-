@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img">
+<defs>
+<linearGradient id="f18" x1="0" y1="0" x2="0.35" y2="1">
+<stop offset="0" stop-color="#F1E1CE"/><stop offset="1" stop-color="#DEBD99"/></linearGradient>
+<radialGradient id="s18" cx="0.72" cy="0.22" r="0.62">
+<stop offset="0" stop-color="#F3DFBC" stop-opacity="0.85"/>
+<stop offset="1" stop-color="#F3DFBC" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#f18)"/>
+<rect width="1200" height="630" fill="url(#s18)"/>
+<path d="M 168.0 567.0 L 168.0 264.6 A 432.0 432.0 0 0 1 1032.0 264.6 L 1032.0 567.0" fill="none" stroke="#B78E4E" stroke-width="1.2" opacity="0.50"/>
+<path d="M 264.0 554.4 L 264.0 264.6 A 336.0 336.0 0 0 1 936.0 264.6 L 936.0 554.4" fill="none" stroke="#B78E4E" stroke-width="1.2" opacity="0.41"/>
+<path d="M 360.0 541.8 L 360.0 264.6 A 240.0 240.0 0 0 1 840.0 264.6 L 840.0 541.8" fill="none" stroke="#B78E4E" stroke-width="1.2" opacity="0.32"/>
+<path d="M 456.0 529.2 L 456.0 264.6 A 144.0 144.0 0 0 1 744.0 264.6 L 744.0 529.2" fill="none" stroke="#B78E4E" stroke-width="1.2" opacity="0.23"/>
+</svg>

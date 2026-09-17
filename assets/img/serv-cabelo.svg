@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" width="640" height="800" role="img">
+<defs>
+<linearGradient id="f2" x1="0" y1="0" x2="0.35" y2="1">
+<stop offset="0" stop-color="#EAD5BE"/><stop offset="1" stop-color="#D0AA82"/></linearGradient>
+<radialGradient id="s2" cx="0.72" cy="0.22" r="0.62">
+<stop offset="0" stop-color="#F3DFBC" stop-opacity="0.85"/>
+<stop offset="1" stop-color="#F3DFBC" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="640" height="800" fill="url(#f2)"/>
+<rect width="640" height="800" fill="url(#s2)"/>
+<path d="M 102.4 -20.0 C 281.6 240.0, -38.4 528.0, 179.2 820.0" fill="none" stroke="#B78E4E" stroke-width="0.80" opacity="0.23"/>
+<path d="M 166.4 -20.0 C 345.6 240.0, 25.6 528.0, 243.2 820.0" fill="none" stroke="#B78E4E" stroke-width="1.30" opacity="0.27"/>
+<path d="M 230.4 -20.0 C 409.6 240.0, 89.6 528.0, 307.2 820.0" fill="none" stroke="#B78E4E" stroke-width="1.80" opacity="0.32"/>
+<path d="M 294.4 -20.0 C 473.6 240.0, 153.6 528.0, 371.2 820.0" fill="none" stroke="#B78E4E" stroke-width="0.80" opacity="0.36"/>
+<path d="M 358.4 -20.0 C 537.6 240.0, 217.6 528.0, 435.2 820.0" fill="none" stroke="#B78E4E" stroke-width="1.30" opacity="0.41"/>
+<path d="M 422.4 -20.0 C 601.6 240.0, 281.6 528.0, 499.2 820.0" fill="none" stroke="#B78E4E" stroke-width="1.80" opacity="0.45"/>
+<path d="M 486.4 -20.0 C 665.6 240.0, 345.6 528.0, 563.2 820.0" fill="none" stroke="#B78E4E" stroke-width="0.80" opacity="0.23"/>
+</svg>
