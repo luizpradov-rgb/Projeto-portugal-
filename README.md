@@ -141,8 +141,30 @@ conversa não se pagar e o retoque até seis meses.
 
 ## Publicar
 
-O site já traz tudo o que é preciso. Faltam dois passos, ambos de uma só
-vez e ambos no GitHub, porque nenhum deles é permitido a um workflow:
+### Vercel — o caminho mais curto
+
+O repositório já traz o `vercel.json` pronto. Não há passo de compilação
+nenhum: a Vercel reconhece o site como estático e serve o que lá está.
+
+1. Entrar em <https://vercel.com/new> com a conta do GitHub.
+2. **Import** no repositório `Projeto-portugal-`.
+3. Em *Framework Preset* deixar **Other**. Não escrever nada em *Build
+   Command* nem em *Output Directory* — o `vercel.json` trata do resto.
+4. **Deploy**.
+
+Fica no ar em menos de um minuto, num endereço `…vercel.app` que já serve
+para mostrar ao cliente. A partir daí, cada envio para o repositório volta a
+publicar sozinho, e cada ramo ganha o seu próprio endereço de pré-visualização.
+
+O `vercel.json` guarda os tipos de letra durante um ano (nunca mudam), as
+fotografias durante uma semana e o CSS e o JavaScript durante uma hora, para
+que uma alteração apareça depressa sem obrigar a descarregar tudo de novo.
+O `.vercelignore` deixa de fora o README, as ferramentas e os workflows.
+
+### GitHub Pages — a alternativa sem sair do GitHub
+
+Já está preparado em `.github/workflows/publicar.yml`, mas precisa de dois
+passos que nenhum workflow pode dar:
 
 1. **Juntar o ramo de trabalho ao `main`.** O ambiente `github-pages` só
    aceita, por omissão, publicações vindas do ramo principal.
@@ -150,26 +172,19 @@ vez e ambos no GitHub, porque nenhum deles é permitido a um workflow:
    O token de um workflow não tem permissão para criar o site do Pages;
    tentou-se, e a resposta foi «Resource not accessible by integration».
 
-Feito isso, cada envio para o `main` põe o site no ar sozinho. Não há passo
-de compilação: o que está no repositório é o que fica publicado.
-O endereço aparece na página `Settings → Pages` e será algo como
-`https://luizpradov-rgb.github.io/Projeto-portugal-/`.
+Feito isso, cada envio para o `main` põe o site no ar sozinho.
 
-O que faz isto é `.github/workflows/publicar.yml`.
+### Netlify — arrastar e largar
+
+<https://app.netlify.com/drop>: arrastar a pasta do projecto para a página.
+É o mais rápido de todos, mas não fica ligado ao repositório: cada alteração
+obriga a arrastar outra vez.
 
 ### Quando houver domínio próprio
 
-1. No GitHub, `Settings → Pages → Custom domain`, escrever o domínio.
-2. No `index.html`, trocar `https://www.solcabeleireiros.pt/` pelo endereço
-   verdadeiro. Aparece em três sítios no topo do ficheiro — `canonical`,
-   `og:url` e `og:image` — e no bloco de dados estruturados, no fim.
-
-### Alternativas, se preferir não usar o GitHub
-
-- **Netlify** — <https://app.netlify.com/drop>: arrastar a pasta para a página.
-- **Vercel** — importar o repositório, sem configuração nenhuma.
-
-Ambos servem o site tal como está, sem alterar nada.
+No `index.html`, trocar `https://www.solcabeleireiros.pt/` pelo endereço
+verdadeiro. Aparece em três sítios no topo do ficheiro — `canonical`,
+`og:url` e `og:image` — e no bloco de dados estruturados, no fim.
 
 ## Como está organizado
 
