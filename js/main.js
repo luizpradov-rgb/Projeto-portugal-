@@ -488,7 +488,22 @@
     elementos.forEach(function (no) { observador.observe(no); });
   }
 
-  /* ---------- 8. Arranque ---------- */
+  /* ---------- 8. O botão flutuante entra quando o topo sai ---------- */
+
+  function flutuante() {
+    var botao = $(".flutuante");
+    var topo = $(".heroi");
+    if (!botao || !topo || !("IntersectionObserver" in window)) return;
+
+    doc.documentElement.classList.add("js-flutuante");
+    new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        botao.classList.toggle("flutuante--visivel", !e.isIntersecting);
+      });
+    }, { threshold: 0 }).observe(topo);
+  }
+
+  /* ---------- 9. Arranque ---------- */
 
   doc.documentElement.classList.add("js-entrada");
 
@@ -509,6 +524,7 @@
     filtros();
     visor();
     marcacao();
+    flutuante();
     try {
       cortes();
       animar();

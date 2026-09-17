@@ -7,7 +7,7 @@
 <meta name="description" content="Salão de beleza em Arroios, Lisboa: cabelo, unhas e estúdio de tatuagem. Uma pessoa de cada vez. Marque a sua vez pelo WhatsApp.">
 <meta name="theme-color" content="#F6EEE7">
 <link rel="canonical" href="https://www.solcabeleireiros.pt/">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png" sizes="128x128">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_PT">
@@ -27,8 +27,12 @@
 <header class="cabecalho" id="cabecalho">
   <div class="envolvente cabecalho__interior">
     <a class="marca" href="#inicio">
-      <span class="marca__nome">Sol</span>
-      <span class="marca__local">cabeleireiros</span>
+      <img class="marca__simbolo" src="assets/img/logotipo.png" alt=""
+           width="360" height="360" decoding="async">
+      <span class="marca__texto">
+        <span class="marca__nome">Sol</span>
+        <span class="marca__local">cabeleireiros</span>
+      </span>
     </a>
 
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">
@@ -58,7 +62,12 @@
         <h1 class="heroi__titulo" data-corte="entrada">O tempo que o seu cabelo precisa.</h1>
         <p class="heroi__lead">Cabelo, unhas e tatuagem num só espaço, em Arroios. Atendemos uma pessoa de cada vez, sem sobreposições e sem relógio à vista.</p>
         <div class="heroi__accoes">
-          <a class="botao" data-whatsapp-generico href="#marcacao">Marcar no WhatsApp</a>
+          <a class="botao botao--contorno" data-whatsapp-generico href="#marcacao">
+            <svg class="botao__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.9 9.9 0 0 0 4.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.16-2.92-7.04A9.88 9.88 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.22 8.22 0 0 1 12.77-10.2 8.16 8.16 0 0 1 2.41 5.82c0 4.56-3.7 8.23-8.22 8.23Zm4.5-6.16c-.24-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.46-.29Z"/>
+            </svg>
+            Marcar pelo WhatsApp
+          </a>
           <a class="ligacao ligacao--discreta" href="#galeria">Ver trabalhos recentes</a>
         </div>
         <p class="heroi__assinatura">Aberto desde 2013 na mesma rua</p>
@@ -442,12 +451,18 @@
           <p><a class="ligacao" data-config="mapaLink" href="https://www.google.com/maps/search/?api=1&query=Rua+de+Arroios+83A+1150-053+Lisboa" target="_blank" rel="noopener">Abrir no Google Maps</a></p>
         </div>
 
+        <!-- FALAR CONNOSCO — fora do site por agora: o email e o Instagram
+             ainda são de exemplo. O telefone já é o verdadeiro, o que está
+             escrito no toldo. Para repor: apagar esta linha e a última deste
+             comentário. A secção volta sozinha a três colunas.
+
         <div class="contactos__bloco">
           <h3 class="contactos__rubrica">Falar connosco</h3>
           <p><a class="ligacao" data-config="telefoneLink" href="tel:+351213540219"><span data-config="telefone">21 354 02 19</span></a></p>
           <p><a class="ligacao" data-config="emailLink" href="mailto:ola@solcabeleireiros.pt"><span data-config="email">ola@solcabeleireiros.pt</span></a></p>
           <p><a class="ligacao" data-config="instagramLink" href="https://instagram.com/solcabeleireiros" target="_blank" rel="noopener">Instagram</a></p>
         </div>
+        -->
 
         <div class="contactos__bloco">
           <h3 class="contactos__rubrica">Horário</h3>
@@ -470,7 +485,11 @@
 
 <footer class="rodape">
   <div class="envolvente rodape__interior">
-    <p class="rodape__marca">Sol Cabeleireiros</p>
+    <p class="rodape__marca">
+      <img class="rodape__simbolo" src="assets/img/logotipo.png" alt=""
+           width="360" height="360" loading="lazy" decoding="async">
+      <span>Sol Cabeleireiros</span>
+    </p>
     <p class="rodape__morada" data-config="morada">Rua de Arroios 83A, 1150-053 Lisboa</p>
     <p class="rodape__direitos">© <span id="ano">2026</span> Sol Cabeleireiros</p>
   </div>

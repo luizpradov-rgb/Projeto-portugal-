@@ -158,10 +158,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .marca {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
   line-height: 1;
   text-decoration: none;
 }
+.marca__simbolo { width: 50px; height: 50px; flex: none; }
+.marca__texto { display: flex; flex-direction: column; }
 .marca__nome {
   font-family: var(--serifada);
   font-size: 1.85rem;
@@ -224,6 +227,17 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .botao:active { transform: translateY(0); }
 
 .botao--pequeno { padding: 0.6rem 1.3rem; }
+
+/* Um bloco preto cheio sobre o nude grita; um contorno fino diz o mesmo sem
+   levantar a voz, e o sinal do WhatsApp dispensa explicar o que acontece. */
+.botao--contorno {
+  gap: 0.65rem;
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--onix);
+}
+.botao--contorno:hover { background: var(--onix); color: var(--areia-clara); }
+.botao__icone { width: 19px; height: 19px; flex: none; }
 
 .botao--ouro {
   background: var(--ouro-luz);
@@ -758,8 +772,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ---------- 14. Contactos ---------- */
 .contactos {
+  /* auto-fit: com dois blocos ficam dois, com três ficam três. Repor o
+     «Falar connosco» não obriga a mexer aqui. */
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: clamp(1.75rem, 4vw, 3.5rem);
 }
 .contactos__bloco p { margin-bottom: 0.4rem; color: var(--tinta-suave); font-weight: 300; }
@@ -819,11 +835,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .rodape p { margin: 0; }
 .rodape__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: var(--serifada);
   font-size: var(--t-2);
   letter-spacing: 0.08em;
   color: var(--ouro-luz);
 }
+.rodape__simbolo { width: 46px; height: 46px; flex: none; }
 .rodape__morada, .rodape__direitos { font-size: var(--t--1); letter-spacing: 0.05em; }
 
 /* ---------- 16. Botão flutuante ---------- */
@@ -842,6 +862,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
   text-decoration: none;
   box-shadow: 0 10px 28px rgba(42, 33, 27, 0.3);
   transition: transform var(--transicao), background var(--transicao);
+}
+/* Fica fora do primeiro ecrã: no topo já existe um botão para marcar, e dois
+   ao mesmo tempo é insistência. Entra quando o topo sai de vista. Sem
+   JavaScript, está sempre presente. */
+.js-flutuante .flutuante {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 320ms ease, transform 320ms ease, visibility 320ms;
+}
+.js-flutuante .flutuante--visivel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 .flutuante:hover { transform: translateY(-2px); background: #E6CB93; }
 .flutuante__icone { width: 26px; height: 26px; }

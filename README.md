@@ -65,7 +65,16 @@ tem treze trabalhos: sete de cabelo, quatro de unhas e dois de tatuagem.
 | `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
 | `trabalho-01.jpg` … `trabalho-13.jpg` | galeria | ver abaixo |
 | `montra.jpg` | faixa da rua, a fechar «Onde estamos» | horizontal, 16:9 |
+| `logotipo.png` | cabeçalho e rodapé | quadrado, com transparência |
 | `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
+
+#### Fora do site por agora
+
+Duas coisas foram tiradas da página mas não apagadas: a **estética** e o
+bloco **«Falar connosco»** dos contactos. Ficaram guardadas em comentário no
+`index.html`, marcadas com `ESTÉTICA` e `FALAR CONNOSCO`. Para as repor,
+basta tirar esses comentários — as secções voltam sozinhas ao aspecto
+antigo, sem mexer no CSS.
 
 #### A estética está fora do site
 
@@ -156,9 +165,9 @@ css/style.css         o aspecto — as cores estão todas no topo, em :root
 css/fontes.css        os tipos de letra
 js/config.js          os dados do salão  ← é aqui que se muda o essencial
 js/main.js            menu, filtros da galeria, visor de fotos, formulário
-assets/img/           imagens
+assets/img/           imagens, incluindo logotipo.png
 assets/fonts/         tipos de letra alojados no próprio site
-assets/favicon.svg    o ícone do separador do navegador
+assets/favicon.png    o ícone do separador, com o S do logótipo
 ```
 
 ### Decisões que vale a pena conhecer
