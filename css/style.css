@@ -140,7 +140,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- 4. Cabeçalho ---------- */
 .cabecalho {
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   z-index: 100;
   background: color-mix(in srgb, var(--areia) 86%, transparent);
   backdrop-filter: blur(12px);
@@ -726,8 +726,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- 16. Botão flutuante ---------- */
 .flutuante {
   position: fixed;
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vw, 2rem);
+  right: calc(clamp(1rem, 3vw, 2rem) + env(safe-area-inset-right, 0px));
+  bottom: calc(clamp(1rem, 3vw, 2rem) + env(safe-area-inset-bottom, 0px));
   z-index: 90;
   display: inline-flex;
   align-items: center;
@@ -918,7 +918,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
   .menu {
     position: fixed;
-    inset: 5.25rem 0 auto;
+    inset: calc(5.25rem + env(safe-area-inset-top, 0px)) 0 auto;
     background: var(--areia);
     border-bottom: var(--fio);
     padding: var(--e-2) clamp(1.25rem, 5vw, 3rem) var(--e-4);
