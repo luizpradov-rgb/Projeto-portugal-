@@ -1,6 +1,7 @@
 # Publica o site no GitHub Pages sempre que houver uma alteração.
 #
-# Para ligar, uma única vez, no GitHub:
+# O passo «Preparar o Pages» liga o GitHub Pages sozinho na primeira vez
+# (enablement: true). Se a conta não o permitir, liga-se à mão, uma só vez:
 #   Settings → Pages → Build and deployment → Source: GitHub Actions
 #
 # A partir daí, cada envio para um dos ramos abaixo põe o site no ar sozinho.
@@ -38,6 +39,9 @@ jobs:
 
       - name: Preparar o Pages
         uses: actions/configure-pages@v5
+        with:
+          # Liga o Pages na primeira vez, em vez de exigir a definição à mão.
+          enablement: true
 
       - name: Empacotar o site
         uses: actions/upload-pages-artifact@v3
