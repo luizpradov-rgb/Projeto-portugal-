@@ -56,7 +56,9 @@ tem treze trabalhos: sete de cabelo, quatro de unhas e dois de tatuagem.
 
 | Ficheiro | Onde aparece | Formato |
 |---|---|---|
-| `heroi.jpg` | topo da página | vertical, 3:4 |
+| `heroi-1.jpg` | topo — carta da esquerda, unhas | vertical, 4:5 |
+| `heroi-2.jpg` | topo — carta do meio, cabelo | vertical, 4:5 |
+| `heroi-3.jpg` | topo — carta da direita, tatuagem | vertical, 4:5 |
 | `salao.jpg` | secção «Doze anos na mesma rua» | vertical, 3:4 |
 | `serv-cabelo.jpg` | serviço «Cabelo» | vertical, 4:5 |
 | `serv-unhas.jpg` | serviço «Unhas» | vertical, 4:5 |
@@ -94,7 +96,7 @@ Fotografias vindas do telemóvel têm 4 ou 5 MB e tornam o site lento para
 quem o visita — e trazem nos metadados o GPS de onde foram tiradas e o
 modelo do telemóvel. As que já estão no site foram reduzidas para cerca de
 1000 px do lado maior, gravadas em JPEG com qualidade 82 e limpas de
-metadados. As dezanove ocupam, juntas, cerca de 1,9 MB — mas só a do topo
+metadados. As vinte e uma ocupam, juntas, cerca de 1,9 MB — mas só a do topo
 da página é carregada de início; as restantes esperam que se chegue a elas.
 
 O ficheiro `ferramentas/tratar-fotos.py` faz isto. Para o usar:

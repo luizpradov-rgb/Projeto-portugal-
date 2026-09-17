@@ -345,7 +345,96 @@
     });
   }
 
-  /* ---------- 6. Dar vida ao texto à medida que se rola ----------
+  /* ---------- 6. Letras que sobem por trás de um corte ----------
+     Só em dois títulos: o do topo, quando a página carrega, e o da tatuagem,
+     quando chega à vista. Em todos seria ruído. Cada letra fica dentro de uma
+     janela que a esconde, e sobe ao seu tempo — do meio da palavra para fora.
+     O texto verdadeiro fica ao lado, invisível mas legível por um leitor de
+     ecrã, e a versão partida é escondida da árvore de acessibilidade: ninguém
+     ouve a frase soletrada letra a letra.                                  */
+
+  function cortar(titulo) {
+    var texto = (titulo.textContent || "").trim();
+    if (!texto) return null;
+
+    var original = doc.createElement("span");
+    original.className = "so-leitor";
+    original.textContent = texto;
+
+    var partido = doc.createElement("span");
+    partido.className = "corte";
+    partido.setAttribute("aria-hidden", "true");
+
+    var letras = [];
+    texto.split(/(\s+)/).forEach(function (pedaco) {
+      if (!pedaco) return;
+      if (/^\s+$/.test(pedaco)) {
+        partido.appendChild(doc.createTextNode(" "));
+        return;
+      }
+      var palavra = doc.createElement("span");
+      palavra.className = "corte__palavra";
+      pedaco.split("").forEach(function (caracter) {
+        var janela = doc.createElement("span");
+        janela.className = "corte__janela";
+        var letra = doc.createElement("span");
+        letra.className = "corte__letra";
+        letra.textContent = caracter;
+        janela.appendChild(letra);
+        palavra.appendChild(janela);
+        letras.push(letra);
+      });
+      partido.appendChild(palavra);
+    });
+
+    /* A partir do meio para fora: as letras do centro abrem primeiro. */
+    var meio = (letras.length - 1) / 2;
+    letras.forEach(function (letra, i) {
+      letra.style.setProperty("--atraso-letra", Math.round(Math.abs(i - meio) * 34) + "ms");
+    });
+
+    titulo.textContent = "";
+    titulo.appendChild(original);
+    titulo.appendChild(partido);
+    return partido;
+  }
+
+  function cortes() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var titulos = $$("[data-corte]");
+    if (!titulos.length) return;
+
+    var partidos = [];
+    titulos.forEach(function (titulo) {
+      var partido = cortar(titulo);
+      if (partido) partidos.push({ no: partido, quando: titulo.dataset.corte });
+    });
+    if (!partidos.length) return;
+
+    doc.documentElement.classList.add("js-corte");
+
+    partidos.forEach(function (p) {
+      if (p.quando === "entrada") {
+        /* Dois quadros para o navegador assentar antes de arrancar. */
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { p.no.classList.add("corte--aberto"); });
+        });
+        return;
+      }
+      if (!("IntersectionObserver" in window)) { p.no.classList.add("corte--aberto"); return; }
+      var obs = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("corte--aberto");
+          obs.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+      obs.observe(p.no);
+    });
+  }
+
+  /* ---------- 7. Dar vida ao texto à medida que se rola ----------
      Cada secção levanta-se um pouco quando chega à vista, com os seus
      elementos a entrar uns atrás dos outros. Só uma vez, e nunca para quem
      tenha as animações desligadas no sistema. Se alguma coisa correr mal
@@ -368,7 +457,8 @@
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     var elementos = $$(A_REVELAR).filter(function (no) {
-      return !no.closest(".heroi");      /* o topo já tem a sua entrada */
+      if (no.closest(".heroi")) return false;        /* o topo tem entrada própria */
+      return !no.hasAttribute("data-corte");         /* nem movimento a dobrar */
     });
     if (!elementos.length) return;
 
@@ -396,9 +486,19 @@
     elementos.forEach(function (no) { observador.observe(no); });
   }
 
-  /* ---------- 7. Arranque ---------- */
+  /* ---------- 8. Arranque ---------- */
 
   doc.documentElement.classList.add("js-entrada");
+
+  /* Quando a entrada acaba, tiramos a marca. Uma animação com fill-mode
+     forwards fixa o transform e impediria, por exemplo, o levantar das cartas
+     do leque ao passar o rato. O estado final da animação é igual ao estado
+     de repouso do CSS, por isso não há salto nenhum. */
+  function fimDaEntrada() {
+    window.setTimeout(function () {
+      doc.documentElement.classList.remove("js-entrada");
+    }, 2000);
+  }
 
   function arrancar() {
     aplicarConfiguracao();
@@ -408,7 +508,9 @@
     visor();
     marcacao();
     try {
+      cortes();
       animar();
+      fimDaEntrada();
     } catch (e) {
       /* Nenhuma animação vale uma página em branco. */
       doc.documentElement.classList.remove("js-animar");

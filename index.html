@@ -55,7 +55,7 @@
   <section class="heroi" id="inicio">
     <div class="envolvente heroi__grelha">
       <div class="heroi__texto">
-        <h1 class="heroi__titulo">O tempo que o seu cabelo precisa.</h1>
+        <h1 class="heroi__titulo" data-corte="entrada">O tempo que o seu cabelo precisa.</h1>
         <p class="heroi__lead">Cabelo, unhas e tatuagem num só espaço, em Arroios. Atendemos uma pessoa de cada vez, sem sobreposições e sem relógio à vista.</p>
         <div class="heroi__accoes">
           <a class="botao" data-whatsapp-generico href="#marcacao">Marcar no WhatsApp</a>
@@ -65,7 +65,27 @@
       </div>
 
       <div class="heroi__imagem">
-        <img class="arco" src="assets/img/heroi.jpg" alt="Cabelo comprido com madeixas em tons de caramelo, visto de costas" width="1000" height="1333" fetchpriority="high">
+        <!-- As três cartas são as três áreas do salão: unhas, cabelo e tatuagem.
+             A do meio é maior e fica à frente, porque o cabelo é o ofício
+             principal. Abrem-se em leque quando a página carrega. -->
+        <figure class="leque">
+          <figcaption class="so-leitor">Três trabalhos do salão: unhas, cabelo e tatuagem.</figcaption>
+
+          <div class="leque__carta leque__carta--esquerda"
+               style="--rot:-6deg; --tx:48px; --ty:24px; --atraso:900ms">
+            <img src="assets/img/heroi-1.jpg" alt="Unhas de gel em lilás cromado, com um laço de cristais numa delas" width="660" height="825">
+          </div>
+
+          <div class="leque__carta leque__carta--centro"
+               style="--rot:0deg; --tx:0px; --ty:-10px; --atraso:1000ms">
+            <img src="assets/img/heroi-2.jpg" alt="Cabelo comprido em ruivo acobreado, com ondas soltas" width="720" height="900" fetchpriority="high">
+          </div>
+
+          <div class="leque__carta leque__carta--direita"
+               style="--rot:6deg; --tx:-48px; --ty:24px; --atraso:1100ms">
+            <img src="assets/img/heroi-3.jpg" alt="Tatuagem de um polvo em blackwork, feita na coxa" width="660" height="825">
+          </div>
+        </figure>
         <span class="arco-eco" aria-hidden="true"></span>
       </div>
     </div>
@@ -196,7 +216,7 @@
   <section class="seccao seccao--onix" id="tatuagem">
     <div class="envolvente tatuagem">
       <div class="tatuagem__texto">
-        <h2 class="titulo titulo--claro">Tinta com tempo</h2>
+        <h2 class="titulo titulo--claro" data-corte="vista">Tinta com tempo</h2>
         <p>A tatuagem vive no mesmo espaço, mas com outro ritmo. Começa sempre por uma conversa, que não se paga: ouvimos a ideia, desenhamos o esboço e só marcamos a sessão quando o desenho já for seu.</p>
         <p>Uma sessão por dia, em sala fechada, com material descartável e pausas sempre que precisar. Saímos de lá quando estiver bom, não quando der a hora.</p>
         <ul class="tatuagem__lista">

@@ -263,8 +263,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .heroi__grelha {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
   padding-bottom: var(--e-6);
 }
@@ -272,6 +272,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .heroi__titulo {
   font-size: var(--t-5);
   line-height: 1.04;
+  letter-spacing: -0.022em;
   max-width: 12ch;
   margin-bottom: var(--e-3);
 }
@@ -304,12 +305,61 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .heroi__imagem { position: relative; }
 
+/* O leque: três trabalhos abertos como uma mão de cartas, um por área do
+   salão. A do meio é maior e fica à frente — o cabelo é o ofício principal.
+   Cada carta guarda a sua rotação e altura nas variáveis --rot e --ty, e
+   --tx é de onde vem quando o leque se abre. */
+.leque {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+
+.leque__carta {
+  position: relative;
+  flex: none;
+  width: 38%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--arco);
+  transform: translateY(var(--ty, 0)) rotate(var(--rot, 0deg));
+  box-shadow:
+    0 24px 48px -20px rgba(42, 33, 27, 0.48),
+    0 0 0 1px rgba(42, 33, 27, 0.07);
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.leque__carta--esquerda { margin-right: -2.2rem; z-index: 1; }
+.leque__carta--centro   { width: 44%; z-index: 2; }
+.leque__carta--direita  { margin-left: -2.2rem; z-index: 1; }
+
+.leque__carta img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Passar o rato levanta a carta e trá-la à frente. */
+.leque__carta:hover,
+.leque__carta:focus-within {
+  z-index: 3;
+  transform: translateY(calc(var(--ty, 0px) - 12px)) rotate(var(--rot, 0deg)) scale(1.03);
+  box-shadow:
+    0 32px 60px -20px rgba(42, 33, 27, 0.55),
+    0 0 0 1px rgba(42, 33, 27, 0.1);
+}
+
 /* O sol: um disco quente que nasce por trás do arco. */
 .arco-eco {
   position: absolute;
-  top: -6%;
-  right: -9%;
-  width: 46%;
+  /* Centrado por margem, e não por transform, para não brigar com a
+     animação da respiração, que também usa transform. */
+  top: -16%;
+  left: 50%;
+  margin-left: -22%;
+  width: 44%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle at 38% 38%, #F0D7A4 0%, #E2BC7E 46%, #D8AC68 100%);
@@ -326,6 +376,23 @@ button, input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
 }
 .fita__tom { flex: 1; background: var(--tom); }
+
+/* O corte vertical: cada letra vive dentro de uma janela que a esconde
+   quando está em baixo. A estrutura não esconde nada por si — só o faz
+   quando o JavaScript marca a página com .js-corte, e nunca para quem tenha
+   as animações desligadas. Sem JavaScript, o título aparece normal. */
+.corte { display: inline; }
+.corte__palavra { display: inline-block; white-space: nowrap; }
+.corte__janela {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Espaço em baixo para as hastes do p e do q não serem cortadas, sem
+     alterar a altura da linha. */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.corte__letra { display: inline-block; will-change: transform; }
 
 /* ---------- 7. Secções ---------- */
 .seccao { padding-block: var(--e-6); }
@@ -843,19 +910,35 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ---------- 18. Um só momento de movimento: a entrada da página ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .js-entrada .heroi__titulo,
   .js-entrada .heroi__lead,
   .js-entrada .heroi__accoes,
-  .js-entrada .heroi__assinatura,
-  .js-entrada .heroi__imagem {
+  .js-entrada .heroi__assinatura {
     opacity: 0;
     transform: translateY(14px);
     animation: nascer 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   }
-  .js-entrada .heroi__lead       { animation-delay: 90ms; }
-  .js-entrada .heroi__accoes     { animation-delay: 180ms; }
-  .js-entrada .heroi__assinatura { animation-delay: 260ms; }
-  .js-entrada .heroi__imagem     { animation-delay: 120ms; }
+  .js-entrada .heroi__lead       { animation-delay: 420ms; }
+  .js-entrada .heroi__accoes     { animation-delay: 520ms; }
+  .js-entrada .heroi__assinatura { animation-delay: 600ms; }
+
+  .js-corte .corte:not(.corte--aberto) .corte__letra { transform: translateY(112%); }
+  .js-corte .corte--aberto .corte__letra {
+    transform: translateY(0);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--atraso-letra, 0ms);
+  }
+
+  /* O leque chega desfocado e fecha o foco; depois as cartas abrem-se,
+     uma atrás da outra, da posição empilhada para a posição final. */
+  .js-entrada .leque {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(12px);
+    animation: leque-entra 520ms cubic-bezier(0.22, 1, 0.36, 1) 380ms forwards;
+  }
+  .js-entrada .leque__carta {
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+    animation: leque-abre 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--atraso) forwards;
+  }
 
   .js-entrada .fita__tom {
     transform: scaleY(0);
@@ -871,8 +954,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .js-entrada .fita__tom:nth-child(7) { animation-delay: 640ms; }
 }
 
-@keyframes nascer { to { opacity: 1; transform: translateY(0); } }
-@keyframes subir  { to { transform: scaleY(1); } }
+@keyframes nascer      { to { opacity: 1; transform: translateY(0); } }
+@keyframes subir       { to { transform: scaleY(1); } }
+@keyframes leque-entra { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+@keyframes leque-abre  { to { transform: translate(0, var(--ty)) rotate(var(--rot)); } }
 
 /* ---------- 18b. O conteúdo levanta-se ao chegar à vista ----------
    As classes .revelar e .revelado são postas pelo JavaScript. Tudo isto vive
@@ -1025,6 +1110,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
   .heroi__imagem, .sobre__imagem, .tatuagem__imagem,
   .servico--destaque .servico__imagem { max-width: 100%; }
+
+  .leque__carta--esquerda { margin-right: -1.1rem; }
+  .leque__carta--direita  { margin-left: -1.1rem; }
 
   .arco-eco { top: -3%; right: 0; width: 38%; }
 
