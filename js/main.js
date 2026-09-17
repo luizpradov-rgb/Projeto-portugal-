@@ -119,12 +119,6 @@
     var menu = $("#menu");
     if (!barra || !botao || !menu) return;
 
-    var aoRolar = function () {
-      barra.classList.toggle("cabecalho--pousado", window.scrollY > 12);
-    };
-    aoRolar();
-    window.addEventListener("scroll", aoRolar, { passive: true });
-
     function fechar() {
       menu.classList.remove("menu--aberto");
       botao.setAttribute("aria-expanded", "false");
@@ -438,15 +432,20 @@
      Cada secção levanta-se um pouco quando chega à vista, com os seus
      elementos a entrar uns atrás dos outros. Só uma vez, e nunca para quem
      tenha as animações desligadas no sistema. Se alguma coisa correr mal
-     aqui, a página fica simplesmente quieta — nunca invisível.            */
+     aqui, a página fica simplesmente quieta — nunca invisível.
+
+     As FOTOGRAFIAS ficam de fora de propósito. Aparecem no instante em que
+     chegam, sem desvanecer: uma fotografia que se faz esperar é uma
+     fotografia que parece lenta, por mais curta que seja a animação. O
+     movimento é do texto.                                                */
 
   var A_REVELAR = [
     ".seccao__abertura > *",
     ".compromisso",
-    ".sobre__imagem", ".sobre__texto > *",
-    ".servico__imagem", ".servico__corpo > *",
-    ".tatuagem__texto > *", ".tatuagem__imagem",
-    ".filtros", ".galeria__item",
+    ".sobre__texto > *",
+    ".servico__corpo > *",
+    ".tatuagem__texto > *",
+    ".filtros",
     ".marcacao__intro > *", ".formulario",
     ".contactos__bloco",
     ".rodape__interior > *"
@@ -469,7 +468,7 @@
       var seccao = no.closest(".seccao, .rodape") || doc.body;
       var i = contagem.get(seccao) || 0;
       contagem.set(seccao, i + 1);
-      no.style.setProperty("--atraso", Math.min(i, 6) * 70 + "ms");
+      no.style.setProperty("--atraso", Math.min(i, 4) * 40 + "ms");
       no.classList.add("revelar");
     });
 
@@ -481,7 +480,10 @@
         entrada.target.classList.add("revelado");
         observador.unobserve(entrada.target);
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.01 });
+      /* A margem positiva faz a revelação começar antes de o elemento
+         entrar no ecrã. Quando chega à vista já está quase inteiro — é a
+         diferença entre um site que responde e um que se faz esperar. */
+    }, { rootMargin: "0px 0px 26% 0px", threshold: 0.01 });
 
     elementos.forEach(function (no) { observador.observe(no); });
   }

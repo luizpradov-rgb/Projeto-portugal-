@@ -56,7 +56,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6.5rem;
+  scroll-padding-top: 1.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -139,17 +139,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ---------- 4. Cabeçalho ---------- */
 .cabecalho {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
+  /* Fica onde está e sobe com a página. Não acompanha a rolagem: era isso
+     que dava o tremer em alguns telemóveis, onde o desfoque de fundo de uma
+     barra colada obriga o ecrã a ser redesenhado a cada pixel de rolagem. */
+  position: relative;
   z-index: 100;
-  background: color-mix(in srgb, var(--areia) 86%, transparent);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transicao), background var(--transicao);
-}
-.cabecalho--pousado {
-  border-bottom-color: var(--nude);
-  background: color-mix(in srgb, var(--areia) 94%, transparent);
+  background: var(--areia);
+  border-bottom: 1px solid var(--nude);
 }
 
 .cabecalho__interior {
@@ -933,11 +929,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
     opacity: 0;
     filter: blur(6px);
     transform: translateY(12px);
-    animation: leque-entra 520ms cubic-bezier(0.22, 1, 0.36, 1) 380ms forwards;
+    animation: leque-entra 460ms cubic-bezier(0.22, 1, 0.36, 1) 200ms forwards;
   }
   .js-entrada .leque__carta {
     transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
-    animation: leque-abre 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--atraso) forwards;
+    animation: leque-abre 460ms cubic-bezier(0.22, 1, 0.36, 1) var(--atraso) forwards;
   }
 
   .js-entrada .fita__tom {
@@ -967,30 +963,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: no-preference) {
   .js-animar .revelar {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   .js-animar .revelar.revelado {
     opacity: 1;
     transform: none;
     transition:
-      opacity   720ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--atraso, 0ms),
-      transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--atraso, 0ms);
+      opacity   460ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--atraso, 0ms),
+      transform 460ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--atraso, 0ms);
   }
 
   /* Os títulos sobem de mais longe e mais devagar: são eles que dão o compasso. */
-  .js-animar .titulo.revelar { transform: translateY(30px); }
-  .js-animar .titulo.revelar.revelado { transition-duration: 980ms; }
-
-  /* As fotografias entram com uma aproximação leve, como uma câmara a assentar. */
-  .js-animar .arco.revelar,
-  .js-animar .sobre__imagem.revelar,
-  .js-animar .tatuagem__imagem.revelar { transform: translateY(20px) scale(1.04); }
-  .js-animar .arco.revelar.revelado,
-  .js-animar .sobre__imagem.revelar.revelado,
-  .js-animar .tatuagem__imagem.revelar.revelado {
-    transform: none;
-    transition-duration: 1100ms;
-  }
+  .js-animar .titulo.revelar { transform: translateY(24px); }
+  .js-animar .titulo.revelar.revelado { transition-duration: 620ms; }
 
   /* O sol respira, devagar, para a página nunca ficar completamente parada. */
   .arco-eco { animation: respirar 16s ease-in-out infinite alternate; }
@@ -1076,8 +1061,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
   }
 
   .menu {
-    position: fixed;
-    inset: calc(5.25rem + env(safe-area-inset-top, 0px)) 0 auto;
+    /* Pendurado no cabeçalho, e não no ecrã: com o cabeçalho a subir com a
+       página, um menu preso ao ecrã ficaria a flutuar sozinho. */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     background: var(--areia);
     border-bottom: var(--fio);
     padding: var(--e-2) clamp(1.25rem, 5vw, 3rem) var(--e-4);
