@@ -46,38 +46,36 @@ escreve-se `351912345678`.
 ### 2. As fotografias
 
 As fotografias do salão já estão no site, tratadas e otimizadas. A galeria
-tem oito trabalhos: seis de cabelo e dois de tatuagem. Faltam duas áreas,
-marcadas abaixo.
+tem treze trabalhos: sete de cabelo, quatro de unhas e dois de tatuagem.
+Falta a estética, marcada abaixo.
 
 | Ficheiro | Onde aparece | Formato |
 |---|---|---|
 | `heroi.jpg` | topo da página | vertical, 3:4 |
 | `salao.jpg` | secção «Doze anos na mesma rua» | vertical, 3:4 |
 | `serv-cabelo.jpg` | serviço «Cabelo» | vertical, 4:5 |
-| `serv-unhas.svg` | serviço «Unhas» — **falta fotografia** | vertical, 4:5 |
+| `serv-unhas.jpg` | serviço «Unhas» | vertical, 4:5 |
 | `serv-estetica.svg` | serviço «Estética» — **falta fotografia** | vertical, 4:5 |
 | `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
-| `trabalho-01.jpg` … `trabalho-08.jpg` | galeria | ver abaixo |
+| `trabalho-01.jpg` … `trabalho-13.jpg` | galeria | ver abaixo |
 | `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
 
-Os dois ficheiros `.svg` são desenhos de marcador, feitos nas cores do
-site. Quando houver fotografias de unhas e de estética, substituem-se —
-e nessa altura muda-se também a extensão no `index.html`, de `.svg` para
-`.jpg`.
+`serv-estetica.svg` é um desenho de marcador, feito nas cores do site.
+Quando houver fotografias de estética, substitui-se — e nessa altura
+muda-se também a extensão no `index.html`, de `.svg` para `.jpg`.
 
 #### Acrescentar um trabalho à galeria
 
 1. Tratar a fotografia (ver abaixo) e gravá-la em `assets/img/` como
-   `trabalho-09.jpg`, `trabalho-10.jpg`, e por aí fora.
+   `trabalho-14.jpg`, `trabalho-15.jpg`, e por aí fora.
 2. No `index.html`, na secção da galeria, copiar um bloco `<li>` inteiro e
    mudar quatro coisas: `data-area`, o nome do ficheiro (aparece duas
    vezes), o `alt` e a legenda.
 3. A classe `galeria__item--alto` é para fotografias verticais. Sem ela, a
    fotografia aparece quadrada.
 
-Se a área for **unhas** ou **estética**, é preciso ainda descomentar os
-dois botões de filtro que estão logo acima da galeria — ficaram lá
-preparados.
+Se a área for **estética**, é preciso ainda descomentar o botão de filtro
+que está logo acima da galeria — ficou lá preparado.
 
 #### Tratar as fotografias antes de as pôr no site
 
@@ -85,8 +83,8 @@ Fotografias vindas do telemóvel têm 4 ou 5 MB e tornam o site lento para
 quem o visita — e trazem nos metadados o GPS de onde foram tiradas e o
 modelo do telemóvel. As que já estão no site foram reduzidas para cerca de
 1000 px do lado maior, gravadas em JPEG com qualidade 82 e limpas de
-metadados. As treze ocupam, juntas, cerca de 1,5 MB — mas só a do topo da
-página é carregada de início; as restantes esperam que se chegue a elas.
+metadados. As dezanove ocupam, juntas, cerca de 1,9 MB — mas só a do topo
+da página é carregada de início; as restantes esperam que se chegue a elas.
 
 O ficheiro `ferramentas/tratar-fotos.py` faz isto. Para o usar:
 
@@ -95,9 +93,10 @@ pip install Pillow
 python3 ferramentas/tratar-fotos.py
 ```
 
-Dentro do ficheiro há uma lista que diz qual a fotografia de origem de
-cada imagem do site e onde fica o centro do recorte — é aí que se mexe
-para trocar ou reenquadrar uma fotografia.
+Dentro do ficheiro há uma lista que diz, para cada imagem do site, qual a
+fotografia de origem, onde fica o centro do recorte e — quando o trabalho
+ocupa só um canto da fotografia — quanto se aproxima dele. É aí que se
+mexe para trocar ou reenquadrar uma fotografia.
 
 #### Uma nota sobre autorização
 
