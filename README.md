@@ -1,12 +1,14 @@
 # Sol Cabeleireiros
 
-Site do salão: cabelo, unhas, estética e estúdio de tatuagem.
+Site do salão: cabelo, unhas e estúdio de tatuagem.
 HTML, CSS e JavaScript simples — sem build, sem dependências, sem servidor.
 Abre-se o ficheiro e funciona.
 
-> **Nota:** os textos, a morada, o telefone e as fotografias são de exemplo,
-> para dar forma ao site. A secção **O que é preciso trocar** diz onde mudar cada
-> coisa. Nada disto exige saber programar.
+> **Nota:** a morada, o telefone, o WhatsApp e as fotografias já são os
+> verdadeiros. Continuam por confirmar o **email**, o **Instagram** e os
+> **textos sobre o salão** — a história, o número de profissionais, o horário
+> e as promessas da secção de tatuagem são de exemplo. A secção **O que é
+> preciso trocar** diz onde mudar cada coisa. Nada disto exige saber programar.
 
 ---
 
@@ -32,22 +34,25 @@ Abrir `js/config.js` e mudar os valores. Tudo o resto do site acompanha
 sozinho: os botões de WhatsApp, os links de chamada, o mapa e o rodapé.
 
 ```js
-whatsapp: "351912345678",   // indicativo do país + número, só dígitos
-telefone: "21 000 00 00",
-email:    "ola@solcabeleireiros.pt",
-morada:   "Rua da Graça 120, 1170-165 Lisboa",
-instagram: "https://instagram.com/solcabeleireiros",
+whatsapp: "351967980517",   // indicativo do país + número, só dígitos
+telefone: "967 980 517",
+email:    "ola@solcabeleireiros.pt",     // ← por confirmar
+morada:   "Rua de Arroios 83A, 1150-053 Lisboa",
+instagram: "https://instagram.com/solcabeleireiros",   // ← por confirmar
 ```
 
+O WhatsApp, o telefone e a morada já são os do salão. O telefone tem o mesmo
+número do WhatsApp; se houver uma linha fixa separada, troca-se aqui. O email
+e o Instagram continuam a ser exemplos.
+
 O número de WhatsApp é o mais importante: é por aí que chegam as marcações.
-Escreve-se sem `+`, sem espaços e sem o zero inicial — para o 912 345 678
-escreve-se `351912345678`.
+Escreve-se sem `+`, sem espaços e sem o zero inicial — para o 967 980 517
+escreve-se `351967980517`.
 
 ### 2. As fotografias
 
 As fotografias do salão já estão no site, tratadas e otimizadas. A galeria
 tem treze trabalhos: sete de cabelo, quatro de unhas e dois de tatuagem.
-Falta a estética, marcada abaixo.
 
 | Ficheiro | Onde aparece | Formato |
 |---|---|---|
@@ -55,14 +60,21 @@ Falta a estética, marcada abaixo.
 | `salao.jpg` | secção «Doze anos na mesma rua» | vertical, 3:4 |
 | `serv-cabelo.jpg` | serviço «Cabelo» | vertical, 4:5 |
 | `serv-unhas.jpg` | serviço «Unhas» | vertical, 4:5 |
-| `serv-estetica.svg` | serviço «Estética» — **falta fotografia** | vertical, 4:5 |
 | `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
 | `trabalho-01.jpg` … `trabalho-13.jpg` | galeria | ver abaixo |
 | `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
 
-`serv-estetica.svg` é um desenho de marcador, feito nas cores do site.
-Quando houver fotografias de estética, substitui-se — e nessa altura
-muda-se também a extensão no `index.html`, de `.svg` para `.jpg`.
+#### A estética está fora do site
+
+Não havia fotografias nem informação, por isso a estética saiu da página —
+não vale a pena prometer um serviço sem nada para mostrar. Não foi apagada:
+ficou guardada em comentário no `index.html`, em três sítios marcados com
+`ESTÉTICA`. O serviço, o botão de filtro da galeria e o grupo da lista de
+serviços do formulário.
+
+Para a repor, basta tirar esses três comentários e pôr uma fotografia por
+cima de `assets/img/serv-estetica.svg`. A secção dos serviços volta sozinha
+ao aspecto de dois serviços lado a lado — não é preciso mexer no CSS.
 
 #### Acrescentar um trabalho à galeria
 
@@ -74,8 +86,7 @@ muda-se também a extensão no `index.html`, de `.svg` para `.jpg`.
 3. A classe `galeria__item--alto` é para fotografias verticais. Sem ela, a
    fotografia aparece quadrada.
 
-Se a área for **estética**, é preciso ainda descomentar o botão de filtro
-que está logo acima da galeria — ficou lá preparado.
+Se a área for **estética**, ver a secção sobre isso mais acima.
 
 #### Tratar as fotografias antes de as pôr no site
 

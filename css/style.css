@@ -434,6 +434,26 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-bottom: var(--fio);
 }
 
+/* Quando só há um serviço depois do destaque, ele ocupa a linha inteira com a
+   fotografia ao lado do texto, em vez de deixar meia linha vazia. A regra
+   desliga-se sozinha assim que voltarem a ser dois — não é preciso mexer em
+   nada no CSS para repor a estética. */
+.servico:not(.servico--destaque):nth-child(2):last-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.servico:not(.servico--destaque):nth-child(2):last-child .servico__imagem {
+  grid-column: 2;
+  grid-row: 1;
+}
+.servico:not(.servico--destaque):nth-child(2):last-child .servico__corpo {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .servico__imagem { aspect-ratio: 4 / 5; }
 .servico--destaque .servico__imagem { aspect-ratio: 3 / 4; }
 
@@ -876,6 +896,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .heroi__grelha { gap: var(--e-4); }
   .heroi__titulo { max-width: 16ch; }
   .heroi__imagem { max-width: 380px; }
+
+  .servico:not(.servico--destaque):nth-child(2):last-child {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .servico:not(.servico--destaque):nth-child(2):last-child .servico__imagem {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 340px;
+  }
+  .servico:not(.servico--destaque):nth-child(2):last-child .servico__corpo {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
   .sobre__imagem { max-width: 340px; }
   .tatuagem__imagem { max-width: 380px; }
