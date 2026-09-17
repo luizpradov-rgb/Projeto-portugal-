@@ -783,6 +783,27 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .horario dt { letter-spacing: 0.02em; }
 .horario dd { margin: 0; white-space: nowrap; }
 
+/* A montra: a fotografia da rua a fechar os contactos. Entra na página por
+   esbatimento nos dois topos — areia em cima, o preto do rodapé em baixo —
+   em vez de se colar como um bloco. A secção tem o seu próprio espaço, por
+   isso a faixa encosta ao fundo dela. */
+.montra {
+  height: clamp(190px, 26vw, 340px);
+  margin-bottom: calc(var(--e-6) * -1);
+  background-image:
+    linear-gradient(
+      to bottom,
+      var(--areia-media) 0%,
+      color-mix(in srgb, var(--areia-media) 58%, transparent) 20%,
+      color-mix(in srgb, var(--areia-media) 18%, transparent) 44%,
+      color-mix(in srgb, var(--onix-fundo) 52%, transparent) 84%,
+      var(--onix-fundo) 100%),
+    url("../assets/img/montra.jpg");
+  background-size: cover, cover;
+  background-position: center, center 38%;
+  background-repeat: no-repeat;
+}
+
 /* ---------- 15. Rodapé ---------- */
 .rodape {
   background: var(--onix-fundo);

@@ -35,7 +35,7 @@ sozinho: os botões de WhatsApp, os links de chamada, o mapa e o rodapé.
 
 ```js
 whatsapp: "351967980517",   // indicativo do país + número, só dígitos
-telefone: "967 980 517",
+telefone: "21 354 02 19",   // o fixo, escrito no toldo
 email:    "ola@solcabeleireiros.pt",     // ← por confirmar
 morada:   "Rua de Arroios 83A, 1150-053 Lisboa",
 instagram: "https://instagram.com/solcabeleireiros",   // ← por confirmar
@@ -64,6 +64,7 @@ tem treze trabalhos: sete de cabelo, quatro de unhas e dois de tatuagem.
 | `serv-unhas.jpg` | serviço «Unhas» | vertical, 4:5 |
 | `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
 | `trabalho-01.jpg` … `trabalho-13.jpg` | galeria | ver abaixo |
+| `montra.jpg` | faixa da rua, a fechar «Onde estamos» | horizontal, 16:9 |
 | `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
 
 #### A estética está fora do site
@@ -96,7 +97,7 @@ Fotografias vindas do telemóvel têm 4 ou 5 MB e tornam o site lento para
 quem o visita — e trazem nos metadados o GPS de onde foram tiradas e o
 modelo do telemóvel. As que já estão no site foram reduzidas para cerca de
 1000 px do lado maior, gravadas em JPEG com qualidade 82 e limpas de
-metadados. As vinte e uma ocupam, juntas, cerca de 1,9 MB — mas só a do topo
+metadados. As vinte e duas ocupam, juntas, cerca de 2 MB — mas só a do topo
 da página é carregada de início; as restantes esperam que se chegue a elas.
 
 O ficheiro `ferramentas/tratar-fotos.py` faz isto. Para o usar:

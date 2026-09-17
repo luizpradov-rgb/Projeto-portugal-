@@ -28,6 +28,7 @@ FOTOS = {
     'magenta':   'magenta.jpg',    # unhas: gel magenta em bico redondo
     'vermelho':  'vermelho.jpg',   # unhas: gel vermelho comprido
     'azeitona':  'azeitona.jpg',   # unhas: verniz gel verde-azeitona, curtas
+    'montra':    'montra.jpg',     # a montra do salão, na rua
 }
 
 # (ficheiro, foto, largura, proporção, foco horizontal, foco vertical, aproximação)
@@ -45,6 +46,7 @@ TRABALHO = [
     ('serv-unhas.jpg',   'chrome',     900, 4/5,      0.56, 0.34),
     ('tatuagem.jpg',     'polvo',     1000, 3/4,      0.52, 0.50),
     ('og.jpg',           'corte-a',   1200, 1200/630, 0.50, 0.40),
+    ('montra.jpg',       'montra',    1210, 16/9,     0.50, 0.46),
 
     # --- galeria: verticais em 3:4, planos curtos em quadrado ---
     ('trabalho-01.jpg', 'madeixas',   800, 3/4, 0.50, 0.46),

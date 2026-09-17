@@ -14,10 +14,10 @@ window.SOL = {
   whatsapp: "351967980517",
 
   /* Telefone como aparece escrito no site e no link de chamada.
-     Está o mesmo número do WhatsApp. Se o salão tiver uma linha fixa
-     separada, é aqui que se troca.                                     */
-  telefone: "967 980 517",
-  telefoneInternacional: "+351967980517",
+     É o fixo do salão, o que está escrito no toldo. O telemóvel fica
+     reservado ao WhatsApp, acima.                                      */
+  telefone: "21 354 02 19",
+  telefoneInternacional: "+351213540219",
 
   /* POR CONFIRMAR — ainda é um endereço de exemplo. */
   email: "ola@solcabeleireiros.pt",
