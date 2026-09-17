@@ -24,79 +24,95 @@
 <body>
 <a class="salto" href="#conteudo">Saltar para o conteúdo</a>
 
-<header class="cabecalho" id="cabecalho">
-  <div class="envolvente cabecalho__interior">
-    <a class="marca" href="#inicio">
-      <img class="marca__simbolo" src="assets/img/logotipo.png" alt=""
-           width="360" height="360" decoding="async">
-      <span class="marca__texto">
-        <span class="marca__nome">Sol</span>
-        <span class="marca__local">cabeleireiros</span>
-      </span>
-    </a>
-
-    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">
-      <span class="menu-btn__barras" aria-hidden="true"></span>
-      <span class="menu-btn__texto">Menu</span>
-    </button>
-
-    <nav class="menu" id="menu" aria-label="Navegação principal">
-      <ul class="menu__lista">
-        <li><a href="#sobre">O salão</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#tatuagem">Tatuagem</a></li>
-        <li><a href="#galeria">Trabalhos</a></li>
-        <li><a href="#contactos">Contactos</a></li>
-        <li><a class="botao botao--pequeno" href="#marcacao">Marcar</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+<div class="grao" aria-hidden="true"></div>
 
 <main id="conteudo">
 
-  <!-- ══════════ HERÓI ══════════ -->
-  <section class="heroi" id="inicio">
-    <div class="envolvente heroi__grelha">
-      <div class="heroi__texto">
-        <h1 class="heroi__titulo" data-corte="entrada">O tempo que o seu cabelo precisa.</h1>
-        <p class="heroi__lead">Cabelo, unhas e tatuagem num só espaço, em Arroios. Atendemos uma pessoa de cada vez, sem sobreposições e sem relógio à vista.</p>
-        <div class="heroi__accoes">
-          <a class="botao botao--contorno" data-whatsapp-generico href="#marcacao">
-            <svg class="botao__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <!-- ══════════ PALCO — o primeiro ecrã ══════════ -->
+  <section class="palco" id="inicio">
+    <div class="palco__fundo" aria-hidden="true"></div>
+    <div class="menu-fundo" id="menu-fundo"></div>
+
+    <header class="palco__cabecalho">
+      <a class="logo aparece aparece--escala" style="--d:0.08s" href="#inicio" aria-label="Sol Cabeleireiros">
+        <img class="logo__simbolo" src="assets/img/logotipo.png" alt=""
+             width="360" height="360" decoding="async">
+        <span class="logo__texto">Sol<span class="logo__sufixo">.cabeleireiros</span></span>
+      </a>
+
+      <nav class="navegacao" id="site-nav" aria-label="Navegação principal">
+        <a class="pilula aparece aparece--escala" style="--d:0.16s" href="#sobre">O salão</a>
+        <a class="pilula aparece aparece--suave"  style="--d:0.28s" href="#servicos">Serviços</a>
+        <a class="pilula aparece aparece--escala" style="--d:0.40s" href="#galeria">Trabalhos</a>
+        <a class="pilula aparece aparece--suave"  style="--d:0.52s" href="#contactos">Contactos</a>
+      </nav>
+
+      <a class="btn btn--solido cabecalho-cta aparece aparece--escala" style="--d:0.34s"
+         data-whatsapp-generico href="#marcacao">Marcar</a>
+
+      <button class="hamburguer aparece aparece--escala" style="--d:0.34s" id="menu-btn"
+              aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <div class="palco__meio">
+      <div class="palco__copia">
+        <span class="emblema aparece aparece--pop" style="--d:0.22s">
+          <svg class="emblema__estrela" viewBox="0 0 24 24" width="18" height="20" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/>
+          </svg>
+          Salão de beleza em Arroios, Lisboa
+        </span>
+
+        <h1 class="palco__titulo">
+          <span class="linha"><span class="aparece aparece--mascara" style="--d:0.42s">O tempo que o seu</span></span>
+          <span class="linha"><span class="aparece aparece--mascara" style="--d:0.62s"><em>cabelo</em> precisa.</span></span>
+        </h1>
+
+        <p class="palco__lede aparece aparece--suave" style="--d:0.82s">
+          Cabelo, unhas e tatuagem num só espaço. Atendemos uma pessoa de cada vez,
+          sem sobreposições e sem relógio à vista.
+        </p>
+
+        <div class="palco__accoes">
+          <a class="btn btn--solido btn--heroi aparece aparece--botao" style="--d:0.96s"
+             data-whatsapp-generico href="#marcacao">
+            <svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path fill="currentColor" d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.9 9.9 0 0 0 4.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.16-2.92-7.04A9.88 9.88 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.22 8.22 0 0 1 12.77-10.2 8.16 8.16 0 0 1 2.41 5.82c0 4.56-3.7 8.23-8.22 8.23Zm4.5-6.16c-.24-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.46-.29Z"/>
             </svg>
             Marcar pelo WhatsApp
           </a>
-          <a class="ligacao ligacao--discreta" href="#galeria">Ver trabalhos recentes</a>
+          <a class="btn btn--vidro btn--heroi aparece aparece--lado" style="--d:1.10s" href="#galeria">
+            Ver trabalhos
+          </a>
         </div>
-        <p class="heroi__assinatura">Aberto desde 2013 na mesma rua</p>
       </div>
+    </div>
 
-      <div class="heroi__imagem">
-        <!-- As três cartas são as três áreas do salão: unhas, cabelo e tatuagem.
-             A do meio é maior e fica à frente, porque o cabelo é o ofício
-             principal. Abrem-se em leque quando a página carrega. -->
-        <figure class="leque">
-          <figcaption class="so-leitor">Três trabalhos do salão: unhas, cabelo e tatuagem.</figcaption>
-
-          <div class="leque__carta leque__carta--esquerda"
-               style="--rot:-6deg; --tx:48px; --ty:24px; --atraso:520ms">
-            <img decoding="async" src="assets/img/heroi-1.jpg" alt="Unhas de gel em lilás cromado, com um laço de cristais numa delas" width="660" height="825">
-          </div>
-
-          <div class="leque__carta leque__carta--centro"
-               style="--rot:0deg; --tx:0px; --ty:-10px; --atraso:600ms">
-            <img decoding="async" src="assets/img/heroi-2.jpg" alt="Cabelo comprido em ruivo acobreado, com ondas soltas" width="720" height="900" fetchpriority="high">
-          </div>
-
-          <div class="leque__carta leque__carta--direita"
-               style="--rot:6deg; --tx:-48px; --ty:24px; --atraso:680ms">
-            <img decoding="async" src="assets/img/heroi-3.jpg" alt="Tatuagem de um polvo em blackwork, feita na coxa" width="660" height="825">
-          </div>
-        </figure>
-        <span class="arco-eco" aria-hidden="true"></span>
-      </div>
+    <!-- Os três compromissos do salão, que antes tinham secção própria. -->
+    <div class="palco__linhas">
+      <span class="linha-facto aparece aparece--facto" style="--d:1.12s">
+        <svg class="linha-facto__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M16 9.5V16l4.5 3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Uma pessoa de cada vez, sem sobreposições
+      </span>
+      <span class="linha-facto aparece aparece--facto" style="--d:1.28s">
+        <svg class="linha-facto__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M24 7c0 9-5 17-13 18 0-9 5-17 13-18Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M20 11c-4 3-7 8-9 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Diagnóstico do cabelo antes da cor
+      </span>
+      <span class="linha-facto aparece aparece--facto" style="--d:1.44s">
+        <svg class="linha-facto__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M8 27V16a8 8 0 0 1 16 0v11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M5 27h22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        Sala fechada para tatuagem
+      </span>
     </div>
 
     <figure class="fita" aria-hidden="true">
@@ -108,36 +124,6 @@
       <span class="fita__tom" style="--tom:#4A3226"></span>
       <span class="fita__tom" style="--tom:#1B1512"></span>
     </figure>
-  </section>
-
-  <!-- ══════════ COMPROMISSOS ══════════ -->
-  <section class="seccao seccao--estreita" aria-label="Como trabalhamos">
-    <ul class="compromissos envolvente">
-      <li class="compromisso">
-        <svg class="compromisso__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="1.1"/>
-          <path d="M16 9.5V16l4.5 3" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        </svg>
-        <h2 class="compromisso__titulo">Uma pessoa de cada vez</h2>
-        <p>Marcamos com folga. Ninguém fica com a cor a assentar enquanto esperamos por outra cliente.</p>
-      </li>
-      <li class="compromisso">
-        <svg class="compromisso__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <path d="M24 7c0 9-5 17-13 18 0-9 5-17 13-18Z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
-          <path d="M20 11c-4 3-7 8-9 14" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        </svg>
-        <h2 class="compromisso__titulo">Diagnóstico antes da cor</h2>
-        <p>Avaliamos o cabelo antes de qualquer descoloração e dizemos que não quando ele não aguenta.</p>
-      </li>
-      <li class="compromisso">
-        <svg class="compromisso__marca" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <path d="M8 27V16a8 8 0 0 1 16 0v11" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-          <path d="M5 27h22" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        </svg>
-        <h2 class="compromisso__titulo">Sala fechada para tatuagem</h2>
-        <p>Estúdio próprio dentro do salão, material descartável e a sessão marcada só para si.</p>
-      </li>
-    </ul>
   </section>
 
   <!-- ══════════ SOBRE ══════════ -->

@@ -111,34 +111,44 @@
     if (ano) ano.textContent = new Date().getFullYear();
   }
 
-  /* ---------- 2. Cabeçalho e menu de telemóvel ---------- */
+  /* ---------- 2. O menu do palco ---------- */
 
-  function cabecalho() {
-    var barra = $("#cabecalho");
+  function menu() {
     var botao = $("#menu-btn");
-    var menu = $("#menu");
-    if (!barra || !botao || !menu) return;
+    var navegacao = $("#site-nav");
+    var fundo = $("#menu-fundo");
+    if (!botao || !navegacao) return;
 
     function fechar() {
-      menu.classList.remove("menu--aberto");
+      doc.body.classList.remove("menu-aberto");
       botao.setAttribute("aria-expanded", "false");
+      botao.setAttribute("aria-label", "Abrir menu");
     }
 
     botao.addEventListener("click", function () {
-      var aberto = menu.classList.toggle("menu--aberto");
+      var aberto = doc.body.classList.toggle("menu-aberto");
       botao.setAttribute("aria-expanded", String(aberto));
+      botao.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
     });
 
-    menu.addEventListener("click", function (e) {
+    navegacao.addEventListener("click", function (e) {
       if (e.target.closest("a")) fechar();
     });
+    if (fundo) fundo.addEventListener("click", fechar);
 
     doc.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("menu--aberto")) {
+      if (e.key === "Escape" && doc.body.classList.contains("menu-aberto")) {
         fechar();
         botao.focus();
       }
     });
+
+    /* Ao alargar o ecrã o menu deixa de fazer sentido: a navegação volta
+       para o cabeçalho e o corpo tem de poder rolar outra vez. */
+    var largo = window.matchMedia("(min-width: 901px)");
+    var aoMudar = function (e) { if (e.matches) fechar(); };
+    if (largo.addEventListener) largo.addEventListener("change", aoMudar);
+    else if (largo.addListener) largo.addListener(aoMudar);
   }
 
   /* ---------- 3. Galeria: filtros ---------- */
@@ -492,7 +502,7 @@
 
   function flutuante() {
     var botao = $(".flutuante");
-    var topo = $(".heroi");
+    var topo = $(".palco");
     if (!botao || !topo || !("IntersectionObserver" in window)) return;
 
     doc.documentElement.classList.add("js-flutuante");
@@ -505,30 +515,53 @@
 
   /* ---------- 9. Arranque ---------- */
 
-  doc.documentElement.classList.add("js-entrada");
+  /* A entrada do palco.
 
-  /* Quando a entrada acaba, tiramos a marca. Uma animação com fill-mode
-     forwards fixa o transform e impediria, por exemplo, o levantar das cartas
-     do leque ao passar o rato. O estado final da animação é igual ao estado
-     de repouso do CSS, por isso não há salto nenhum. */
-  function fimDaEntrada() {
-    window.setTimeout(function () {
-      doc.documentElement.classList.remove("js-entrada");
-    }, 2000);
+     Cada elemento marca-se a si próprio como .entrou quando a sua animação
+     acaba: a partir daí sai da frente e deixa passar os transforms de passar
+     o rato, que uma animação com fill-mode both travaria.
+
+     E há uma rede: se ao fim de dois quadros não houver animação nenhuma a
+     correr — porque o navegador não as suporta, porque estão desligadas, ou
+     porque alguma coisa correu mal — marcamos tudo como entrado. A página
+     nunca fica em branco à espera de um evento que não vem. */
+
+  function entradas() {
+    var elementos = $$(".aparece").concat($$(".palco__fundo"));
+    if (!elementos.length) return;
+
+    elementos.forEach(function (no) {
+      no.addEventListener("animationend", function () {
+        no.classList.add("entrou");
+      }, { once: true });
+    });
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        var aCorrer = elementos.some(function (no) {
+          if (!no.getAnimations) return true;   /* sem forma de saber: não mexer */
+          return no.getAnimations().some(function (a) {
+            return a.playState === "running" || a.playState === "finished";
+          });
+        });
+        if (aCorrer) return;
+        elementos.forEach(function (no) { no.classList.add("entrou"); });
+      });
+    });
   }
 
   function arrancar() {
     aplicarConfiguracao();
     ligacoesWhatsApp();
-    cabecalho();
+    menu();
     filtros();
     visor();
     marcacao();
     flutuante();
     try {
+      entradas();
       cortes();
       animar();
-      fimDaEntrada();
     } catch (e) {
       /* Nenhuma animação vale uma página em branco. */
       doc.documentElement.classList.remove("js-animar");

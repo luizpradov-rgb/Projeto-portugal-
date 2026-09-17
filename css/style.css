@@ -137,74 +137,349 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-radius: var(--arco);
 }
 
-/* ---------- 4. Cabeçalho ---------- */
-.cabecalho {
-  /* Fica onde está e sobe com a página. Não acompanha a rolagem: era isso
-     que dava o tremer em alguns telemóveis, onde o desfoque de fundo de uma
-     barra colada obriga o ecrã a ser redesenhado a cada pixel de rolagem. */
-  position: relative;
-  z-index: 100;
-  background: var(--areia);
-  border-bottom: 1px solid var(--nude);
+/* ---------- 4. O palco: o primeiro ecrã ----------
+   Mesma estrutura e mesmo movimento do modelo, nas cores do salão: o preto
+   quente por baixo, a areia no texto, o dourado no acento. As medidas vivem
+   em fichas próprias (--p-*) para mudarem de uma vez por tamanho de ecrã.
+   -------------------------------------------------------------------------- */
+:root {
+  --palco-fundo:     #16110D;
+  --palco-texto:     #F6EEE7;
+  --palco-suave:     #C9B7A4;
+  --palco-facto:     #E0D2C2;
+  --palco-fio:       rgba(246, 238, 231, 0.16);
+  --palco-fio-tenue: rgba(246, 238, 231, 0.11);
+  /* Um dourado um pouco mais claro do que o do resto do site: sobre a
+     fotografia do palco, o outro ficava justo de mais no contraste. */
+  --palco-ouro:      #E6CB94;
+
+  --p-logo: 15.5px;
+  --p-marca: 34px;
+  --p-nav: 14px;
+  --p-nav-h: 40px;
+  --p-btn: 13.5px;
+  --p-btn-h: 40px;
+  --p-btn-heroi-h: 42px;
+  --p-h1: 48px;
+  --p-lede: 15.5px;
+  --p-emblema: 12.5px;
+  --p-facto: 13.5px;
+  --p-cab-y: 22px;
+  --p-cab-x: 40px;
+  --p-linhas-x: 72px;
+  --p-linhas-y: 36px;
+  --p-folga: 85px;
+  --p-copia-max: 860px;
+  --p-lede-max: 470px;
 }
 
-.cabecalho__interior {
+.palco {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--palco-fundo);
+  color: var(--palco-texto);
+}
+
+.palco__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--palco-fundo) url("../assets/img/palco.jpg") center / cover no-repeat;
+}
+.palco__fundo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* Uma cama escura debaixo do cabeçalho, para o logótipo dourado se ler. */
+    linear-gradient(to bottom, rgba(22, 17, 13, 0.92) 0%, rgba(22, 17, 13, 0) 22%),
+    radial-gradient(110% 70% at 74% 20%, rgba(215, 183, 120, 0.13), transparent 64%),
+    linear-gradient(to bottom,
+      rgba(22, 17, 13, 0.70) 0%,
+      rgba(22, 17, 13, 0.74) 30%,
+      rgba(22, 17, 13, 0.88) 60%,
+      rgba(22, 17, 13, 0.97) 86%,
+      var(--palco-fundo) 100%);
+}
+
+/* Grão: uma poeira fina sobre a página inteira, para o preto não ficar chapado. */
+.grao {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23r)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+/* ---------- 4a. Cabeçalho do palco ---------- */
+.palco__cabecalho {
+  position: relative;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: var(--p-cab-y) var(--p-cab-x) 10px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  font-family: var(--serifada);
+  font-size: var(--p-logo);
+  letter-spacing: 0.02em;
+  color: var(--palco-texto);
+  text-decoration: none;
+}
+.logo__simbolo {
+  width: var(--p-marca);
+  height: var(--p-marca);
+  flex: none;
+  /* A filigrana é fina e perde-se sobre o escuro; um toque de brilho chega. */
+  filter: brightness(1.3) saturate(1.05);
+}
+.logo__texto { font-size: 1.35em; line-height: 1; }
+.logo__sufixo { color: var(--palco-ouro); }
+
+.navegacao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: center;
+}
+
+/* Pílulas de metal líquido: um brilho atravessa-as ao passar o rato. */
+.pilula {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--p-nav-h);
+  padding: 0 18px;
+  overflow: hidden;
+  border: 1px solid rgba(215, 183, 120, 0.42);
+  border-radius: 7px;
+  background: linear-gradient(105deg, #140F0B 0%, #32261C 48%, #4C3A2A 100%);
+  color: #F1E6D8;
+  font-size: var(--p-nav);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.pilula::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 244, 222, 0.18) 50%, transparent 70%);
+  transition: transform 0.6s ease;
+}
+.pilula:hover {
+  border-color: rgba(232, 207, 154, 0.85);
+  background: linear-gradient(105deg, #1B140E 0%, #3E2F22 45%, #6B523A 100%);
+  box-shadow: 0 0 18px rgba(215, 183, 120, 0.2);
+}
+.pilula:hover::before { transform: translateX(120%); }
+
+.cabecalho-cta { justify-self: end; }
+
+.hamburguer {
+  display: none;
+  place-items: center;
+  align-content: center;   /* sem isto as linhas esticam e as barras afastam-se */
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  z-index: 60;
+  border: 1px solid var(--palco-fio);
+  border-radius: 6px;
+  background: rgba(22, 17, 13, 0.55);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.hamburguer span {
+  width: 16px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--palco-texto);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.hamburguer:hover { border-color: rgba(246, 238, 231, 0.32); background: rgba(246, 238, 231, 0.06); }
+body.menu-aberto .hamburguer span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+body.menu-aberto .hamburguer span:nth-child(2) { opacity: 0; }
+body.menu-aberto .hamburguer span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ---------- 4b. Botões do palco ---------- */
+.btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: var(--p-btn-h);
+  padding: 0 16px;
+  overflow: hidden;
+  border-radius: 6px;
+  font-size: var(--p-btn);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%);
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 252, 244, 0.45) 48%, transparent 76%);
+  transition: transform 0.65s ease;
+}
+.btn:hover::after { transform: translateX(130%); }
+.btn__icone { width: 18px; height: 18px; flex: none; }
+.btn--heroi { height: var(--p-btn-heroi-h); padding: 0 18px; }
+
+/* Cheio: o dourado do salão no lugar do branco do modelo. */
+.btn--solido {
+  border: 1px solid #E8CF9A;
+  background: linear-gradient(180deg, #F0DCAE 0%, #D7B778 48%, #C0A05C 100%);
+  color: #1B1512;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.95);
+}
+.btn--solido:hover {
+  border-color: #F6E7C2;
+  background: linear-gradient(180deg, #FBEFCD 0%, #E4C88C 42%, #CBAA68 100%);
+  box-shadow: inset 0 1px 0 #FFF8E8, 0 0 26px rgba(215, 183, 120, 0.4), 0 8px 18px rgba(215, 183, 120, 0.14);
+}
+
+/* Vidro: gelado, com o contorno claro. */
+.btn--vidro {
+  border: 1px solid rgba(232, 214, 186, 0.5);
+  background: linear-gradient(135deg, rgba(246, 238, 231, 0.12), rgba(22, 17, 13, 0.5) 46%, rgba(215, 183, 120, 0.1));
+  color: var(--palco-texto);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(246, 238, 231, 0.14);
+}
+.btn--vidro:hover {
+  border-color: rgba(246, 232, 202, 0.8);
+  background: linear-gradient(135deg, rgba(246, 238, 231, 0.18), rgba(22, 17, 13, 0.35) 48%, rgba(215, 183, 120, 0.16));
+  box-shadow: inset 0 1px 0 rgba(246, 238, 231, 0.22), 0 0 24px rgba(215, 183, 120, 0.26);
+}
+
+/* ---------- 4c. O meio: emblema, título, lede, acções ---------- */
+.palco__meio {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 0;
+  padding: 8px 24px var(--p-folga);
+}
+
+.palco__copia {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--p-copia-max);
+  text-align: center;
+}
+
+.emblema {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #7A6448 0%, #2A2018 52%, #120D09 100%);
+  color: #F2E8DA;
+  font-size: var(--p-emblema);
+  letter-spacing: 0.02em;
+}
+.emblema__estrela {
+  color: var(--palco-ouro);
+  filter: drop-shadow(0 0 3px rgba(230, 203, 148, 0.5));
+  flex: none;
+}
+
+.palco__titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--serifada);
+  font-size: var(--p-h1);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--palco-texto);
+}
+/* A janela que corta a linha fica quieta; é o texto lá dentro que sobe. */
+.linha { display: block; overflow: hidden; padding: 0.06em 0.15em 0.14em; }
+.linha > span { display: block; }
+.palco__titulo em {
+  font-style: normal;
+  font-size: 1.06em;
+  color: var(--palco-ouro);
+}
+
+.palco__lede {
+  max-width: var(--p-lede-max);
+  margin-top: 18px;
+  color: var(--palco-suave);
+  font-size: var(--p-lede);
+  font-weight: 300;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+}
+
+.palco__accoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+/* ---------- 4d. As três linhas do fundo ---------- */
+.palco__linhas {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--e-3);
-  min-height: 5.25rem;
+  gap: 24px;
+  padding: 0 var(--p-linhas-x) var(--p-linhas-y);
+  padding-bottom: max(var(--p-linhas-y), env(safe-area-inset-bottom));
+  color: var(--palco-facto);
 }
-
-.marca {
-  display: flex;
+.linha-facto {
+  display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  line-height: 1;
-  text-decoration: none;
+  gap: 14px;
+  font-size: var(--p-facto);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
-.marca__simbolo { width: 50px; height: 50px; flex: none; }
-.marca__texto { display: flex; flex-direction: column; }
-.marca__nome {
-  font-family: var(--serifada);
-  font-size: 1.85rem;
-  letter-spacing: 0.06em;
-  color: var(--tinta);
-}
-.marca__local {
-  font-size: 0.68rem;
-  letter-spacing: 0.32em;
-  color: var(--ouro-escuro);
-  margin-top: 0.3rem;
-  margin-left: 0.12em;
-}
+.linha-facto__marca { width: 22px; height: 22px; flex: none; color: var(--palco-ouro); }
 
-.menu__lista {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 2.2vw, 2rem);
-}
-.menu__lista a {
-  text-decoration: none;
-  font-size: var(--t--1);
-  letter-spacing: 0.1em;
-  color: var(--tinta-suave);
-  padding-block: 0.4rem;
-  border-bottom: 1px solid transparent;
-  transition: color var(--transicao), border-color var(--transicao);
-}
-.menu__lista a:hover { color: var(--tinta); border-bottom-color: var(--ouro); }
-
-/* O botão do menu é um botão, não uma ligação de navegação: recupera a sua
-   própria cor e altura, que `.menu__lista a` lhe estava a levar. */
-.menu__lista .botao {
-  color: var(--areia-clara);
-  padding-block: 0.6rem;
-  border-bottom-color: var(--onix);
-}
-.menu__lista .botao:hover { color: var(--areia-clara); border-bottom-color: #3A2E25; }
-
-.menu-btn { display: none; }
+/* A fita fecha o palco, encostada ao fundo. */
+.palco .fita { position: absolute; left: 0; right: 0; bottom: 0; }
 
 /* ---------- 5. Botões e ligações ---------- */
 .botao {
@@ -264,120 +539,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   text-decoration-color: var(--ouro);
 }
 
-/* ---------- 6. Herói ---------- */
-.heroi {
-  position: relative;
-  overflow-x: clip;               /* o sol não pode abrir barra de deslocação */
-  padding-top: clamp(2.5rem, 5vw, 4.5rem);
-}
-
-.heroi__grelha {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
-  padding-bottom: var(--e-6);
-}
-
-.heroi__titulo {
-  font-size: var(--t-5);
-  line-height: 1.04;
-  letter-spacing: -0.022em;
-  max-width: 12ch;
-  margin-bottom: var(--e-3);
-}
-
-.heroi__lead {
-  font-size: var(--t-1);
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--tinta-suave);
-  max-width: 44ch;
-  margin-bottom: var(--e-4);
-}
-
-.heroi__accoes {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--e-3) var(--e-4);
-}
-
-.heroi__assinatura {
-  margin: var(--e-4) 0 0;
-  padding-top: var(--e-3);
-  border-top: var(--fio);
-  max-width: 30ch;
-  font-size: var(--t--1);
-  letter-spacing: 0.12em;
-  color: var(--ouro-escuro);
-}
-
-.heroi__imagem { position: relative; }
-
-/* O leque: três trabalhos abertos como uma mão de cartas, um por área do
-   salão. A do meio é maior e fica à frente — o cabelo é o ofício principal.
-   Cada carta guarda a sua rotação e altura nas variáveis --rot e --ty, e
-   --tx é de onde vem quando o leque se abre. */
-.leque {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 0;
-}
-
-.leque__carta {
-  position: relative;
-  flex: none;
-  width: 38%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: var(--arco);
-  transform: translateY(var(--ty, 0)) rotate(var(--rot, 0deg));
-  box-shadow:
-    0 24px 48px -20px rgba(42, 33, 27, 0.48),
-    0 0 0 1px rgba(42, 33, 27, 0.07);
-  transition: transform var(--transicao), box-shadow var(--transicao);
-}
-.leque__carta--esquerda { margin-right: -2.2rem; z-index: 1; }
-.leque__carta--centro   { width: 44%; z-index: 2; }
-.leque__carta--direita  { margin-left: -2.2rem; z-index: 1; }
-
-.leque__carta img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Passar o rato levanta a carta e trá-la à frente. */
-.leque__carta:hover,
-.leque__carta:focus-within {
-  z-index: 3;
-  transform: translateY(calc(var(--ty, 0px) - 12px)) rotate(var(--rot, 0deg)) scale(1.03);
-  box-shadow:
-    0 32px 60px -20px rgba(42, 33, 27, 0.55),
-    0 0 0 1px rgba(42, 33, 27, 0.1);
-}
-
-/* O sol: um disco quente que nasce por trás do arco. */
-.arco-eco {
-  position: absolute;
-  /* Centrado por margem, e não por transform, para não brigar com a
-     animação da respiração, que também usa transform. */
-  top: -16%;
-  left: 50%;
-  margin-left: -22%;
-  width: 44%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 38% 38%, #F0D7A4 0%, #E2BC7E 46%, #D8AC68 100%);
-  opacity: 0.62;
-  filter: blur(0.5px);
-  z-index: -1;
-}
-
+/* ---------- 6. A fita de cores ---------- */
 /* A carta de cores do salão, reduzida a um fio. */
 .fita {
   display: flex;
@@ -421,39 +583,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-weight: 300;
   color: var(--tinta-suave);
   max-width: 52ch;
-}
-
-/* ---------- 8. Compromissos ---------- */
-.compromissos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.75rem, 4vw, 3.5rem);
-}
-
-.compromisso { padding-left: 0; }
-.compromisso + .compromisso {
-  border-left: var(--fio);
-  padding-left: clamp(1.75rem, 4vw, 3.5rem);
-}
-
-.compromisso__marca {
-  width: 30px;
-  height: 30px;
-  color: var(--ouro);
-  margin-bottom: var(--e-2);
-}
-
-.compromisso__titulo {
-  font-size: var(--t-2);
-  margin-bottom: 0.6rem;
-}
-
-.compromisso p {
-  margin: 0;
-  font-size: 0.98rem;
-  font-weight: 300;
-  color: var(--tinta-suave);
-  max-width: 34ch;
 }
 
 /* ---------- 9. Sobre ---------- */
@@ -959,56 +1088,69 @@ button, input, select, textarea { font: inherit; color: inherit; }
   right: 0;
 }
 
-/* ---------- 18. Um só momento de movimento: a entrada da página ---------- */
+/* ---------- 18. A entrada do palco ----------
+   Em repouso, .aparece tem opacidade 1: se as animações falharem, a página
+   aparece inteira em vez de ficar vazia. O modo `both` aplica o fotograma
+   inicial durante a espera, por isso, quando correm mesmo, escondem-se
+   primeiro e entram depois. Ao terminar, o JavaScript marca .entrou e a
+   animação sai da frente — senão o fill-mode travava qualquer transform
+   posterior, como o levantar dos botões.
+   -------------------------------------------------------------------------- */
+.aparece { opacity: 1; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .js-entrada .heroi__lead,
-  .js-entrada .heroi__accoes,
-  .js-entrada .heroi__assinatura {
-    opacity: 0;
-    transform: translateY(14px);
-    animation: nascer 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  .aparece {
+    animation-duration: 1.05s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-delay: var(--d, 0.08s);
   }
-  .js-entrada .heroi__lead       { animation-delay: 420ms; }
-  .js-entrada .heroi__accoes     { animation-delay: 520ms; }
-  .js-entrada .heroi__assinatura { animation-delay: 600ms; }
+  .aparece--escala  { animation-name: entra-escala; }
+  .aparece--suave   { animation-name: entra-suave; }
+  .aparece--mascara { animation-name: entra-mascara; }
+  .aparece--pop     { animation-name: entra-pop; }
+  .aparece--botao   { animation-name: entra-botao; }
+  .aparece--lado    { animation-name: entra-lado; }
+  .aparece--facto   { animation-name: entra-facto; }
 
-  .js-corte .corte:not(.corte--aberto) .corte__letra { transform: translateY(112%); }
-  .js-corte .corte--aberto .corte__letra {
-    transform: translateY(0);
-    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--atraso-letra, 0ms);
-  }
+  .palco__lede.aparece { animation-duration: 1.25s; }
 
-  /* O leque chega desfocado e fecha o foco; depois as cartas abrem-se,
-     uma atrás da outra, da posição empilhada para a posição final. */
-  .js-entrada .leque {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translateY(12px);
-    animation: leque-entra 460ms cubic-bezier(0.22, 1, 0.36, 1) 200ms forwards;
+  .emblema__estrela {
+    animation: entra-estrela 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
   }
-  .js-entrada .leque__carta {
-    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
-    animation: leque-abre 460ms cubic-bezier(0.22, 1, 0.36, 1) var(--atraso) forwards;
+  .palco__titulo em {
+    animation: entra-acento 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
   }
 
-  .js-entrada .fita__tom {
-    transform: scaleY(0);
-    transform-origin: bottom;
-    animation: subir 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  .aparece.entrou,
+  .palco__fundo.entrou {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
-  .js-entrada .fita__tom:nth-child(1) { animation-delay: 340ms; }
-  .js-entrada .fita__tom:nth-child(2) { animation-delay: 390ms; }
-  .js-entrada .fita__tom:nth-child(3) { animation-delay: 440ms; }
-  .js-entrada .fita__tom:nth-child(4) { animation-delay: 490ms; }
-  .js-entrada .fita__tom:nth-child(5) { animation-delay: 540ms; }
-  .js-entrada .fita__tom:nth-child(6) { animation-delay: 590ms; }
-  .js-entrada .fita__tom:nth-child(7) { animation-delay: 640ms; }
 }
 
-@keyframes nascer      { to { opacity: 1; transform: translateY(0); } }
-@keyframes subir       { to { transform: scaleY(1); } }
-@keyframes leque-entra { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
-@keyframes leque-abre  { to { transform: translate(0, var(--ty)) rotate(var(--rot)); } }
+@keyframes entra-escala  { from { opacity: 0; transform: scale(0.84); }          to { opacity: 1; transform: none; } }
+@keyframes entra-suave   { from { opacity: 0; transform: translateY(14px); }     to { opacity: 1; transform: none; } }
+@keyframes entra-mascara { from { opacity: 0; transform: translateY(40%); }      to { opacity: 1; transform: none; } }
+@keyframes entra-botao   { from { opacity: 0; transform: translateY(18px) scale(0.94); } to { opacity: 1; transform: none; } }
+@keyframes entra-lado    { from { opacity: 0; transform: translateX(22px); }     to { opacity: 1; transform: none; } }
+@keyframes entra-facto   { from { opacity: 0; transform: translateY(20px); }     to { opacity: 1; transform: none; } }
+@keyframes entra-pop {
+  0%   { opacity: 0; transform: scale(0.9); }
+  70%  { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes entra-estrela {
+  0%   { opacity: 0; transform: scale(0.2) rotate(-50deg); }
+  65%  { opacity: 1; transform: scale(1.2) rotate(8deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes entra-acento {
+  from { opacity: 0.35; filter: blur(4px); }
+  to   { opacity: 1; filter: none; }
+}
 
 /* ---------- 18b. O conteúdo levanta-se ao chegar à vista ----------
    As classes .revelar e .revelado são postas pelo JavaScript. Tudo isto vive
@@ -1031,14 +1173,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
   /* Os títulos sobem de mais longe e mais devagar: são eles que dão o compasso. */
   .js-animar .titulo.revelar { transform: translateY(24px); }
   .js-animar .titulo.revelar.revelado { transition-duration: 620ms; }
-
-  /* O sol respira, devagar, para a página nunca ficar completamente parada. */
-  .arco-eco { animation: respirar 16s ease-in-out infinite alternate; }
-}
-
-@keyframes respirar {
-  from { transform: translateY(0) scale(1);        opacity: 0.58; }
-  to   { transform: translateY(-14px) scale(1.06); opacity: 0.72; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1050,99 +1184,185 @@ button, input, select, textarea { font: inherit; color: inherit; }
   }
 }
 
-/* ---------- 19. Ecrãs médios ---------- */
+/* ---------- 19. O palco em cada tamanho de ecrã ---------- */
+.menu-fundo { display: none; }
+
+@media (min-width: 1600px) {
+  :root {
+    --p-logo: 17px; --p-marca: 38px; --p-nav: 15px; --p-nav-h: 44px;
+    --p-btn: 15px; --p-btn-h: 44px; --p-btn-heroi-h: 48px;
+    --p-h1: 64px; --p-lede: 18px; --p-emblema: 13.5px; --p-facto: 15px;
+    --p-cab-y: 28px; --p-cab-x: 64px; --p-linhas-x: 96px; --p-linhas-y: 44px;
+    --p-copia-max: 980px; --p-lede-max: 540px;
+  }
+  .pilula { padding: 0 20px; }
+  .emblema { margin-bottom: 26px; }
+  .palco__lede { margin-top: 22px; }
+  .palco__accoes { margin-top: 30px; gap: 12px; }
+  .linha-facto__marca { width: 24px; height: 24px; }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --p-logo: 18px; --p-marca: 42px; --p-nav: 16px; --p-nav-h: 48px;
+    --p-btn: 16px; --p-btn-h: 48px; --p-btn-heroi-h: 52px;
+    --p-h1: 76px; --p-lede: 20px; --p-emblema: 14.5px; --p-facto: 16px;
+    --p-cab-y: 32px; --p-cab-x: 80px; --p-linhas-x: 120px; --p-linhas-y: 52px;
+    --p-copia-max: 1120px; --p-lede-max: 620px;
+  }
+  .navegacao { gap: 10px; }
+  .pilula { padding: 0 22px; }
+  .btn { padding: 0 22px; }
+  .emblema { padding: 10px 15px; }
+}
+
+@media (min-width: 2560px) {
+  :root { --p-h1: 88px; --p-lede: 22px; --p-cab-x: 120px; --p-linhas-x: 160px;
+          --p-copia-max: 1280px; --p-lede-max: 680px; }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  :root { --p-h1: 54px; --p-lede: 16px; --p-cab-x: 48px; --p-linhas-x: 80px;
+          --p-copia-max: 900px; }
+}
+
+@media (min-width: 901px) and (max-width: 1279px) {
+  :root {
+    --p-logo: 15px; --p-marca: 32px; --p-nav: 13px; --p-nav-h: 36px;
+    --p-btn: 13px; --p-btn-h: 38px; --p-btn-heroi-h: 40px;
+    --p-h1: 42px; --p-lede: 15px; --p-emblema: 12px; --p-facto: 12.5px;
+    --p-cab-y: 16px; --p-cab-x: 28px; --p-linhas-x: 36px; --p-linhas-y: 28px;
+    --p-folga: 64px; --p-copia-max: 760px; --p-lede-max: 440px;
+  }
+  .pilula { padding: 0 14px; }
+  .emblema { margin-bottom: 16px; }
+  .palco__lede { margin-top: 14px; }
+  .palco__accoes { margin-top: 20px; }
+}
+
+/* Ecrãs baixos: o palco encolhe para caber sem cortar nada. */
+@media (min-width: 901px) and (max-height: 850px) {
+  :root { --p-cab-y: 14px; --p-linhas-y: 24px; --p-folga: 48px; --p-h1: 40px; }
+  .emblema { margin-bottom: 12px; }
+  .palco__lede { margin-top: 12px; }
+  .palco__accoes { margin-top: 16px; }
+}
+@media (min-width: 901px) and (max-height: 720px) {
+  :root { --p-h1: 34px; --p-lede: 14px; --p-folga: 32px; --p-linhas-y: 18px;
+          --p-nav-h: 30px; --p-btn-h: 34px; --p-btn-heroi-h: 36px; }
+  .emblema { margin-bottom: 8px; }
+}
+
+/* ---------- 20. O palco no telemóvel ---------- */
+@media (max-width: 900px) {
+  :root {
+    --p-logo: 16px; --p-marca: 34px; --p-btn: 15px; --p-btn-h: 46px;
+    --p-btn-heroi-h: 48px; --p-h1: 36px; --p-lede: 16.5px;
+    --p-emblema: 13.5px; --p-facto: 15px;
+    --p-cab-y: 16px; --p-cab-x: 18px; --p-linhas-x: 20px; --p-linhas-y: 28px;
+    --p-folga: 36px;
+  }
+
+  .palco { min-height: auto; }
+  .palco__meio { padding: 20px 20px var(--p-folga); }
+
+  .palco__cabecalho {
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    padding-top: max(var(--p-cab-y), env(safe-area-inset-top));
+  }
+  .logo, .cabecalho-cta, .hamburguer { z-index: 80; }
+  .hamburguer { display: grid; }
+
+  .menu-fundo {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(18, 13, 10, 0.74);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease, backdrop-filter 0.28s ease;
+  }
+  body.menu-aberto .menu-fundo {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .navegacao {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    /* O cabeçalho é uma grelha e o justify-self dela continuava a valer aqui,
+       encolhendo a navegação à largura do conteúdo. */
+    justify-self: stretch;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 12px;
+    padding: 96px 22px 32px;
+    padding-top: max(96px, calc(env(safe-area-inset-top) + 88px));
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+  }
+  body.menu-aberto .navegacao { opacity: 1; visibility: visible; }
+  body.menu-aberto { overflow: hidden; }
+
+  .pilula {
+    width: 100%;
+    height: 56px;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 19px;
+  }
+
+  .palco__copia, .palco__lede { max-width: 100%; }
+  .palco__linhas {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .linha-facto { white-space: normal; }
+}
+
+@media (max-width: 560px) {
+  :root { --p-h1: 34px; --p-lede: 16px; --p-cab-x: 16px; }
+  .palco__accoes { flex-direction: column; width: 100%; }
+  .palco__accoes .btn { width: 100%; }
+}
+
+/* ---------- 21. As secções em ecrãs médios ---------- */
 @media (max-width: 1000px) {
-  .heroi__grelha,
   .sobre,
   .tatuagem,
   .marcacao,
-  .servico--destaque {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .heroi__grelha { gap: var(--e-4); }
-  .heroi__titulo { max-width: 16ch; }
-  .heroi__imagem { max-width: 380px; }
+  .servico--destaque { grid-template-columns: minmax(0, 1fr); }
 
   .servico:not(.servico--destaque):nth-child(2):last-child {
     grid-template-columns: minmax(0, 1fr);
   }
   .servico:not(.servico--destaque):nth-child(2):last-child .servico__imagem {
-    grid-column: 1;
-    grid-row: 1;
-    max-width: 340px;
+    grid-column: 1; grid-row: 1; max-width: 340px;
   }
   .servico:not(.servico--destaque):nth-child(2):last-child .servico__corpo {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column: 1; grid-row: 2;
   }
 
   .sobre__imagem { max-width: 340px; }
   .tatuagem__imagem { max-width: 380px; }
   .servico--destaque .servico__imagem { max-width: 340px; }
-
   .contactos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-  .compromissos { grid-template-columns: minmax(0, 1fr); gap: var(--e-3); }
-  .compromisso + .compromisso {
-    border-left: 0;
-    border-top: var(--fio);
-    padding-left: 0;
-    padding-top: var(--e-3);
-  }
-  .compromisso p { max-width: 52ch; }
 }
 
-/* ---------- 20. Telemóvel ---------- */
+/* ---------- 22. As secções no telemóvel ---------- */
 @media (max-width: 760px) {
-  .menu-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.55rem 1rem;
-    background: transparent;
-    border: var(--fio);
-    border-radius: var(--raio-pilula);
-    font-size: var(--t--1);
-    letter-spacing: 0.1em;
-    cursor: pointer;
-  }
-  .menu-btn__barras {
-    position: relative;
-    width: 16px;
-    height: 9px;
-    border-top: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-  }
-
-  .menu {
-    /* Pendurado no cabeçalho, e não no ecrã: com o cabeçalho a subir com a
-       página, um menu preso ao ecrã ficaria a flutuar sozinho. */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--areia);
-    border-bottom: var(--fio);
-    padding: var(--e-2) clamp(1.25rem, 5vw, 3rem) var(--e-4);
-    transform: translateY(-12px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transicao), transform var(--transicao), visibility var(--transicao);
-  }
-  .menu--aberto { transform: translateY(0); opacity: 1; visibility: visible; }
-
-  .menu__lista { flex-direction: column; align-items: stretch; gap: 0; }
-  .menu__lista li { border-bottom: var(--fio); }
-  .menu__lista li:last-child { border-bottom: 0; padding-top: var(--e-2); }
-  .menu__lista a { display: block; padding: 0.95rem 0; font-size: var(--t-1); letter-spacing: 0.04em; }
-  .menu__lista a:hover { border-bottom-color: transparent; }
-  .menu__lista .botao {
-    display: flex;
-    justify-content: center;
-    padding: 0.9rem 1.3rem;
-  }
-
   .servicos,
   .contactos,
   .servico--destaque .servico__lista { grid-template-columns: minmax(0, 1fr); }
@@ -1152,13 +1372,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
   .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .heroi__imagem, .sobre__imagem, .tatuagem__imagem,
+  .sobre__imagem, .tatuagem__imagem,
   .servico--destaque .servico__imagem { max-width: 100%; }
-
-  .leque__carta--esquerda { margin-right: -1.1rem; }
-  .leque__carta--direita  { margin-left: -1.1rem; }
-
-  .arco-eco { top: -3%; right: 0; width: 38%; }
 
   .factos { gap: var(--e-3); }
   .facto { min-width: 6.5rem; }

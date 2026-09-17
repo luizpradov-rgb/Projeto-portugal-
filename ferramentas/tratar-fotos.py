@@ -47,6 +47,7 @@ TRABALHO = [
     ('tatuagem.jpg',     'polvo',     1000, 3/4,      0.52, 0.50),
     ('og.jpg',           'corte-a',   1200, 1200/630, 0.50, 0.40),
     ('montra.jpg',       'montra',    1210, 16/9,     0.50, 0.46),
+    ('palco.jpg',        'ruivo',     1206, 3/2,      0.50, 0.42),
 
     # --- galeria: verticais em 3:4, planos curtos em quadrado ---
     ('trabalho-01.jpg', 'madeixas',   800, 3/4, 0.50, 0.46),
