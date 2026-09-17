@@ -20,6 +20,41 @@
     return "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem || "");
   }
 
+  /* Abrir o WhatsApp numa janela nova é o melhor caso, mas há sítios onde o
+     navegador não deixa: o browser dentro do Instagram e do Facebook, os
+     bloqueadores de janelas e as pré-visualizações em caixa fechada. Sem
+     alternativa, o botão não fazia rigorosamente nada. Quando a janela nova
+     é recusada, seguimos na própria janela — é melhor do que não acontecer
+     nada. */
+  function abrirLigacao(destino) {
+    if (!destino) return false;
+    var janela = null;
+    try {
+      janela = window.open(destino, "_blank");
+    } catch (e) {
+      janela = null;
+    }
+    if (janela) {
+      try { janela.opener = null; } catch (e) {}
+      return true;
+    }
+    window.location.href = destino;
+    return false;
+  }
+
+  /* Vale para todas as ligações de WhatsApp da página, incluindo as que
+     vierem a ser acrescentadas. O href continua lá, por isso abrir num
+     separador novo com o botão direito continua a funcionar, e a página
+     também funciona sem JavaScript. */
+  function ligacoesWhatsApp() {
+    doc.addEventListener("click", function (e) {
+      var ligacao = e.target.closest('a[href^="https://wa.me/"]');
+      if (!ligacao || e.metaKey || e.ctrlKey || e.shiftKey || e.button > 0) return;
+      e.preventDefault();
+      abrirLigacao(ligacao.getAttribute("href"));
+    });
+  }
+
   /* ---------- 1. Escrever os dados do salão no HTML ----------
      O HTML já traz valores por omissão para que o site faça sentido sem
      JavaScript e para que os motores de busca os leiam. Aqui só
@@ -299,7 +334,7 @@
         return;
       }
 
-      window.open(destino, "_blank", "noopener");
+      abrirLigacao(destino);
     });
 
     form.addEventListener("input", function (e) {
@@ -310,16 +345,74 @@
     });
   }
 
-  /* ---------- 6. Arranque ---------- */
+  /* ---------- 6. Dar vida ao texto à medida que se rola ----------
+     Cada secção levanta-se um pouco quando chega à vista, com os seus
+     elementos a entrar uns atrás dos outros. Só uma vez, e nunca para quem
+     tenha as animações desligadas no sistema. Se alguma coisa correr mal
+     aqui, a página fica simplesmente quieta — nunca invisível.            */
+
+  var A_REVELAR = [
+    ".seccao__abertura > *",
+    ".compromisso",
+    ".sobre__imagem", ".sobre__texto > *",
+    ".servico__imagem", ".servico__corpo > *",
+    ".tatuagem__texto > *", ".tatuagem__imagem",
+    ".filtros", ".galeria__item",
+    ".marcacao__intro > *", ".formulario",
+    ".contactos__bloco",
+    ".rodape__interior > *"
+  ].join(",");
+
+  function animar() {
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var elementos = $$(A_REVELAR).filter(function (no) {
+      return !no.closest(".heroi");      /* o topo já tem a sua entrada */
+    });
+    if (!elementos.length) return;
+
+    /* O atraso conta-se dentro de cada secção, para que uma secção comprida
+       não acabe com meio segundo de espera no último elemento. */
+    var contagem = new Map();
+    elementos.forEach(function (no) {
+      var seccao = no.closest(".seccao, .rodape") || doc.body;
+      var i = contagem.get(seccao) || 0;
+      contagem.set(seccao, i + 1);
+      no.style.setProperty("--atraso", Math.min(i, 6) * 70 + "ms");
+      no.classList.add("revelar");
+    });
+
+    doc.documentElement.classList.add("js-animar");
+
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (!entrada.isIntersecting) return;
+        entrada.target.classList.add("revelado");
+        observador.unobserve(entrada.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.01 });
+
+    elementos.forEach(function (no) { observador.observe(no); });
+  }
+
+  /* ---------- 7. Arranque ---------- */
 
   doc.documentElement.classList.add("js-entrada");
 
   function arrancar() {
     aplicarConfiguracao();
+    ligacoesWhatsApp();
     cabecalho();
     filtros();
     visor();
     marcacao();
+    try {
+      animar();
+    } catch (e) {
+      /* Nenhuma animação vale uma página em branco. */
+      doc.documentElement.classList.remove("js-animar");
+    }
   }
 
   if (doc.readyState === "loading") {
