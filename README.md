@@ -141,12 +141,17 @@ conversa não se pagar e o retoque até seis meses.
 
 ## Publicar
 
-O site já traz tudo o que é preciso. Falta uma definição, uma só vez:
+O site já traz tudo o que é preciso. Faltam dois passos, ambos de uma só
+vez e ambos no GitHub, porque nenhum deles é permitido a um workflow:
 
-**No GitHub:** `Settings` → `Pages` → *Build and deployment* → **Source: GitHub Actions**
+1. **Juntar o ramo de trabalho ao `main`.** O ambiente `github-pages` só
+   aceita, por omissão, publicações vindas do ramo principal.
+2. **`Settings` → `Pages` → *Build and deployment* → Source: GitHub Actions.**
+   O token de um workflow não tem permissão para criar o site do Pages;
+   tentou-se, e a resposta foi «Resource not accessible by integration».
 
-Feito isso, o site vai ao ar sozinho e volta a ir a cada alteração. Não há
-passo de compilação: o que está no repositório é o que fica publicado.
+Feito isso, cada envio para o `main` põe o site no ar sozinho. Não há passo
+de compilação: o que está no repositório é o que fica publicado.
 O endereço aparece na página `Settings → Pages` e será algo como
 `https://luizpradov-rgb.github.io/Projeto-portugal-/`.
 

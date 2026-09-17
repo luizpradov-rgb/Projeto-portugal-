@@ -1,20 +1,22 @@
-# Publica o site no GitHub Pages sempre que houver uma alteração.
+# Publica o site no GitHub Pages.
 #
-# O passo «Preparar o Pages» liga o GitHub Pages sozinho na primeira vez
-# (enablement: true). Se a conta não o permitir, liga-se à mão, uma só vez:
-#   Settings → Pages → Build and deployment → Source: GitHub Actions
+# Faltam dois passos, ambos de uma só vez e ambos do lado do GitHub, porque
+# nenhum deles é permitido a um workflow:
 #
-# A partir daí, cada envio para um dos ramos abaixo põe o site no ar sozinho.
-# Não há passo de compilação: o site é HTML, CSS e JavaScript simples, e o que
-# está no repositório é exactamente o que fica publicado.
+#   1. Juntar este ramo ao `main`. O ambiente `github-pages` só aceita, por
+#      omissão, publicações vindas do ramo principal do repositório.
+#   2. Settings → Pages → Build and deployment → Source: GitHub Actions.
+#      O token de um workflow não tem permissão para criar o site do Pages —
+#      tentou-se, e a resposta foi «Resource not accessible by integration».
+#
+# Feito isso, cada envio para o `main` põe o site no ar sozinho. Não há passo
+# de compilação: o que está no repositório é o que fica publicado.
 
 name: Publicar o site
 
 on:
   push:
-    branches:
-      - main
-      - claude/beauty-salon-website-kb3fgm
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -22,7 +24,7 @@ permissions:
   pages: write
   id-token: write
 
-# Uma publicação de cada vez; as que estiverem em fila esperam pela anterior.
+# Uma publicação de cada vez; as que ficarem em fila esperam pela anterior.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -40,7 +42,8 @@ jobs:
       - name: Preparar o Pages
         uses: actions/configure-pages@v5
         with:
-          # Liga o Pages na primeira vez, em vez de exigir a definição à mão.
+          # Liga o Pages sozinho se o token tiver permissão para isso. Quando
+          # não tem, o passo 2 do cabeçalho resolve.
           enablement: true
 
       - name: Empacotar o site
