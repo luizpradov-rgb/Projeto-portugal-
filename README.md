@@ -45,8 +45,9 @@ escreve-se `351912345678`.
 
 ### 2. As fotografias
 
-As fotografias do salão já estão no site, tratadas e otimizadas. Faltam
-duas áreas, marcadas abaixo.
+As fotografias do salão já estão no site, tratadas e otimizadas. A galeria
+tem oito trabalhos: seis de cabelo e dois de tatuagem. Faltam duas áreas,
+marcadas abaixo.
 
 | Ficheiro | Onde aparece | Formato |
 |---|---|---|
@@ -56,7 +57,7 @@ duas áreas, marcadas abaixo.
 | `serv-unhas.svg` | serviço «Unhas» — **falta fotografia** | vertical, 4:5 |
 | `serv-estetica.svg` | serviço «Estética» — **falta fotografia** | vertical, 4:5 |
 | `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
-| `trabalho-01.jpg` … `trabalho-05.jpg` | galeria | ver abaixo |
+| `trabalho-01.jpg` … `trabalho-08.jpg` | galeria | ver abaixo |
 | `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
 
 Os dois ficheiros `.svg` são desenhos de marcador, feitos nas cores do
@@ -67,7 +68,7 @@ e nessa altura muda-se também a extensão no `index.html`, de `.svg` para
 #### Acrescentar um trabalho à galeria
 
 1. Tratar a fotografia (ver abaixo) e gravá-la em `assets/img/` como
-   `trabalho-06.jpg`, `trabalho-07.jpg`, e por aí fora.
+   `trabalho-09.jpg`, `trabalho-10.jpg`, e por aí fora.
 2. No `index.html`, na secção da galeria, copiar um bloco `<li>` inteiro e
    mudar quatro coisas: `data-area`, o nome do ficheiro (aparece duas
    vezes), o `alt` e a legenda.
@@ -84,7 +85,8 @@ Fotografias vindas do telemóvel têm 4 ou 5 MB e tornam o site lento para
 quem o visita — e trazem nos metadados o GPS de onde foram tiradas e o
 modelo do telemóvel. As que já estão no site foram reduzidas para cerca de
 1000 px do lado maior, gravadas em JPEG com qualidade 82 e limpas de
-metadados. As dez ocupam, juntas, pouco mais de 1 MB.
+metadados. As treze ocupam, juntas, cerca de 1,5 MB — mas só a do topo da
+página é carregada de início; as restantes esperam que se chegue a elas.
 
 O ficheiro `ferramentas/tratar-fotos.py` faz isto. Para o usar:
 
@@ -99,7 +101,7 @@ para trocar ou reenquadrar uma fotografia.
 
 #### Uma nota sobre autorização
 
-As fotografias mostram clientes reais, e uma delas mostra um rosto. Em
+As fotografias mostram clientes reais e algumas mostram rostos. Em
 Portugal, publicar a imagem de alguém precisa do consentimento dessa
 pessoa, mesmo quando a fotografia é do trabalho do salão. Vale a pena
 garantir que está dado antes de o site ir para o ar.

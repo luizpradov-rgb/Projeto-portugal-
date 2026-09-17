@@ -13,28 +13,37 @@ DESTINO = 'assets/img'
 # Nome curto -> ficheiro original. Para trocar uma fotografia, basta mudar
 # aqui o nome do ficheiro: tudo o que a usa passa a usar a nova.
 FOTOS = {
-    'polvo':    'polvo.jpg',      # tatuagem: polvo em blackwork
-    'bussola':  'bussola.jpg',    # tatuagem: bússola, veleiro e âncora
-    'liso':     'liso.jpg',       # cabelo: alisamento
-    'madeixas': 'madeixas.jpg',   # cabelo: madeixas caramelo
-    'corte':    'corte.jpg',      # cabelo: corte masculino, com o salão ao fundo
+    'polvo':     'polvo.jpg',      # tatuagem: polvo em blackwork
+    'bussola':   'bussola.jpg',    # tatuagem: bússola, veleiro e âncora
+    'liso':      'liso.jpg',       # cabelo: alisamento
+    'madeixas':  'madeixas.jpg',   # cabelo: madeixas caramelo
+    'corte-a':   'corte-a.jpg',    # cabelo: corte masculino, com o salão ao fundo
+    'platinado': 'platinado.jpg',  # cabelo: loiro platinado com madeixas
+    'ruivo':     'ruivo.jpg',      # cabelo: ruivo acobreado
+    'cinza':     'cinza.jpg',      # cabelo: loiro cinza com madeixas
+    'dourado':   'dourado.jpg',    # cabelo: loiro dourado com pontas em caracol
+    'corte-b':   'corte-b.jpg',    # cabelo: corte masculino clássico
 }
 
 # (ficheiro, foto, largura, proporção, foco horizontal, foco vertical)
 # O foco é a fração do eixo que fica no centro do recorte: 0,5 é o meio.
 TRABALHO = [
-    ('heroi.jpg',       'madeixas', 1000, 3/4,  0.50, 0.46),
-    ('salao.jpg',       'corte',    1000, 3/4,  0.52, 0.44),
-    ('serv-cabelo.jpg', 'liso',      900, 4/5,  0.50, 0.42),
-    ('tatuagem.jpg',    'polvo',    1000, 3/4,  0.52, 0.50),
+    # --- imagens grandes ---
+    ('heroi.jpg',       'madeixas',  1000, 3/4,      0.50, 0.46),
+    ('salao.jpg',       'corte-a',   1000, 3/4,      0.52, 0.44),
+    ('serv-cabelo.jpg', 'platinado',  900, 4/5,      0.52, 0.40),
+    ('tatuagem.jpg',    'polvo',     1000, 3/4,      0.52, 0.50),
+    ('og.jpg',          'corte-a',   1200, 1200/630, 0.50, 0.40),
 
-    ('trabalho-01.jpg', 'madeixas',  800, 3/4,  0.50, 0.46),
-    ('trabalho-02.jpg', 'liso',      800, 3/4,  0.50, 0.44),
-    ('trabalho-03.jpg', 'corte',     760, 1/1,  0.46, 0.40),
-    ('trabalho-04.jpg', 'polvo',     800, 3/4,  0.52, 0.50),
-    ('trabalho-05.jpg', 'bussola',   760, 1/1,  0.52, 0.50),
-
-    ('og.jpg',          'corte',    1200, 1200/630, 0.50, 0.40),
+    # --- galeria: verticais em 3:4, cortes masculinos em quadrado ---
+    ('trabalho-01.jpg', 'madeixas',   800, 3/4, 0.50, 0.46),
+    ('trabalho-02.jpg', 'ruivo',      800, 3/4, 0.50, 0.42),
+    ('trabalho-03.jpg', 'polvo',      800, 3/4, 0.52, 0.50),
+    ('trabalho-04.jpg', 'cinza',      800, 3/4, 0.50, 0.50),
+    ('trabalho-05.jpg', 'corte-b',    760, 1/1, 0.46, 0.34),
+    ('trabalho-06.jpg', 'dourado',    800, 3/4, 0.50, 0.48),
+    ('trabalho-07.jpg', 'bussola',    760, 1/1, 0.52, 0.50),
+    ('trabalho-08.jpg', 'liso',       800, 3/4, 0.50, 0.44),
 ]
 
 
