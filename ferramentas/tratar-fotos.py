@@ -37,10 +37,6 @@ FOTOS = {
 # do motivo — útil quando o trabalho ocupa um canto pequeno da fotografia.
 TRABALHO = [
     # --- imagens grandes ---
-    # O topo da página é um leque de três cartas, uma por área do salão.
-    ('heroi-1.jpg',      'chrome',     660, 4/5,      0.56, 0.32),
-    ('heroi-2.jpg',      'ruivo',      720, 4/5,      0.50, 0.40),
-    ('heroi-3.jpg',      'polvo',      660, 4/5,      0.52, 0.48),
     ('salao.jpg',        'corte-a',   1000, 3/4,      0.52, 0.44),
     ('serv-cabelo.jpg',  'platinado',  900, 4/5,      0.52, 0.40),
     ('serv-unhas.jpg',   'chrome',     900, 4/5,      0.56, 0.34),
