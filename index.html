@@ -14,7 +14,7 @@
 <meta property="og:title" content="Sol Cabeleireiros — Salão de beleza em Lisboa">
 <meta property="og:description" content="Cabelo, unhas, estética e tatuagem, sem pressa. Marque a sua vez pelo WhatsApp.">
 <meta property="og:url" content="https://www.solcabeleireiros.pt/">
-<meta property="og:image" content="https://www.solcabeleireiros.pt/assets/img/og.svg">
+<meta property="og:image" content="https://www.solcabeleireiros.pt/assets/img/og.jpg">
 
 <link rel="preload" href="assets/fonts/marcellus-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -65,7 +65,7 @@
       </div>
 
       <div class="heroi__imagem">
-        <img class="arco" src="assets/img/heroi.svg" alt="Sala do salão Sol Cabeleireiros com luz da manhã a entrar pela janela" width="640" height="840" fetchpriority="high">
+        <img class="arco" src="assets/img/heroi.jpg" alt="Cabelo comprido com madeixas em tons de caramelo, visto de costas" width="1000" height="1333" fetchpriority="high">
         <span class="arco-eco" aria-hidden="true"></span>
       </div>
     </div>
@@ -115,7 +115,7 @@
   <section class="seccao seccao--areia" id="sobre">
     <div class="envolvente sobre">
       <div class="sobre__imagem">
-        <img class="arco" src="assets/img/salao.svg" alt="Cadeiras do salão junto à janela, com plantas e espelhos" width="640" height="840" loading="lazy">
+        <img class="arco" src="assets/img/salao.jpg" alt="Cliente na cadeira do salão depois de um corte, com as prateleiras e as plantas ao fundo" width="1000" height="1333" loading="lazy">
       </div>
       <div class="sobre__texto">
         <h2 class="titulo">Doze anos na mesma rua</h2>
@@ -140,7 +140,7 @@
 
       <div class="servicos">
         <article class="servico servico--destaque">
-          <img class="arco servico__imagem" src="assets/img/serv-cabelo.svg" alt="Madeixas em tons de mel num cabelo comprido" width="640" height="840" loading="lazy">
+          <img class="arco servico__imagem" src="assets/img/serv-cabelo.jpg" alt="Cabelo castanho alisado, com brilho, visto de costas" width="900" height="1125" loading="lazy">
           <div class="servico__corpo">
             <h3 class="servico__nome">Cabelo</h3>
             <p class="servico__desc">Corte, cor e tratamento, sempre com diagnóstico antes de mexermos numa única madeixa. As cores são misturadas à mão, à frente do espelho.</p>
@@ -203,7 +203,7 @@
       </div>
 
       <div class="tatuagem__imagem">
-        <img class="arco" src="assets/img/tatuagem.svg" alt="Bancada do estúdio de tatuagem com esboços, tinta e luz baixa" width="640" height="840" loading="lazy">
+        <img class="arco" src="assets/img/tatuagem.jpg" alt="Tatuagem de um polvo em blackwork, feita na coxa" width="1000" height="1333" loading="lazy">
       </div>
     </div>
   </section>
@@ -219,83 +219,51 @@
       <div class="filtros" role="group" aria-label="Filtrar trabalhos por área">
         <button class="filtro filtro--activo" data-filtro="todos" aria-pressed="true">Todos</button>
         <button class="filtro" data-filtro="cabelo" aria-pressed="false">Cabelo</button>
-        <button class="filtro" data-filtro="unhas" aria-pressed="false">Unhas</button>
-        <button class="filtro" data-filtro="estetica" aria-pressed="false">Estética</button>
         <button class="filtro" data-filtro="tatuagem" aria-pressed="false">Tatuagem</button>
+        <!-- Quando houver fotografias de unhas e de estética, acrescentar aqui:
+        <button class="filtro" data-filtro="unhas" aria-pressed="false">Unhas</button>
+        <button class="filtro" data-filtro="estetica" aria-pressed="false">Estética</button> -->
       </div>
       <p class="so-leitor" id="galeria-estado" role="status"></p>
 
       <ul class="galeria" id="galeria-grelha">
+        <!-- Para acrescentar um trabalho, copiar um <li> inteiro e mudar quatro
+             coisas: data-area, o nome do ficheiro (nos dois sítios), o alt e a
+             legenda. A classe galeria__item--alto é para fotografias verticais;
+             sem ela a fotografia fica quadrada. -->
+
         <li class="galeria__item galeria__item--alto" data-area="cabelo">
-          <button class="galeria__botao" data-legenda="Balayage em tons de mel, feito em duas sessões" data-imagem="assets/img/trabalho-01.svg">
-            <img src="assets/img/trabalho-01.svg" alt="Balayage em tons de mel num cabelo comprido ondulado" width="600" height="800" loading="lazy">
-            <span class="galeria__legenda">Balayage em tons de mel</span>
+          <button class="galeria__botao" data-legenda="Madeixas em tons de caramelo sobre base castanha" data-imagem="assets/img/trabalho-01.jpg">
+            <img src="assets/img/trabalho-01.jpg" alt="Cabelo ondulado com madeixas em tons de caramelo" width="800" height="1067" loading="lazy">
+            <span class="galeria__legenda">Madeixas em tons de caramelo</span>
           </button>
         </li>
-        <li class="galeria__item" data-area="unhas">
-          <button class="galeria__botao" data-legenda="Unhas de gel em nude, comprimento curto" data-imagem="assets/img/trabalho-02.svg">
-            <img src="assets/img/trabalho-02.svg" alt="Unhas de gel curtas pintadas em tom nude" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Unhas de gel em nude</span>
-          </button>
-        </li>
-        <li class="galeria__item" data-area="tatuagem">
-          <button class="galeria__botao" data-legenda="Ramo em fine line no antebraço, sessão única" data-imagem="assets/img/trabalho-03.svg">
-            <img src="assets/img/trabalho-03.svg" alt="Tatuagem de um ramo em linha fina no antebraço" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Fine line no antebraço</span>
-          </button>
-        </li>
-        <li class="galeria__item" data-area="cabelo">
-          <button class="galeria__botao" data-legenda="Corte bob com risca ao meio" data-imagem="assets/img/trabalho-04.svg">
-            <img src="assets/img/trabalho-04.svg" alt="Corte bob pelo queixo com risca ao meio" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Corte bob</span>
-          </button>
-        </li>
-        <li class="galeria__item galeria__item--alto" data-area="estetica">
-          <button class="galeria__botao" data-legenda="Design de sobrancelhas com henna" data-imagem="assets/img/trabalho-05.svg">
-            <img src="assets/img/trabalho-05.svg" alt="Sobrancelhas desenhadas com henna" width="600" height="800" loading="lazy">
-            <span class="galeria__legenda">Sobrancelhas com henna</span>
-          </button>
-        </li>
-        <li class="galeria__item" data-area="cabelo">
-          <button class="galeria__botao" data-legenda="Coloração acobreada 7.4 sobre base castanha" data-imagem="assets/img/trabalho-06.svg">
-            <img src="assets/img/trabalho-06.svg" alt="Cabelo com coloração acobreada" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Coloração acobreada</span>
-          </button>
-        </li>
-        <li class="galeria__item" data-area="unhas">
-          <button class="galeria__botao" data-legenda="Nail art com detalhes dourados sobre base leitosa" data-imagem="assets/img/trabalho-07.svg">
-            <img src="assets/img/trabalho-07.svg" alt="Unhas com desenhos dourados sobre base leitosa" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Nail art dourada</span>
-          </button>
-        </li>
+
         <li class="galeria__item galeria__item--alto" data-area="cabelo">
-          <button class="galeria__botao" data-legenda="Penteado de noiva com apanhado baixo" data-imagem="assets/img/trabalho-08.svg">
-            <img src="assets/img/trabalho-08.svg" alt="Penteado de noiva com apanhado baixo" width="600" height="800" loading="lazy">
-            <span class="galeria__legenda">Penteado de noiva</span>
+          <button class="galeria__botao" data-legenda="Alisamento com tratamento de brilho" data-imagem="assets/img/trabalho-02.jpg">
+            <img src="assets/img/trabalho-02.jpg" alt="Cabelo castanho alisado e com brilho, visto de costas" width="800" height="1067" loading="lazy">
+            <span class="galeria__legenda">Alisamento com brilho</span>
           </button>
         </li>
-        <li class="galeria__item" data-area="tatuagem">
-          <button class="galeria__botao" data-legenda="Lettering em caligrafia, pulso interior" data-imagem="assets/img/trabalho-09.svg">
-            <img src="assets/img/trabalho-09.svg" alt="Tatuagem de lettering no pulso" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Lettering no pulso</span>
-          </button>
-        </li>
-        <li class="galeria__item" data-area="estetica">
-          <button class="galeria__botao" data-legenda="Extensão de pestanas, efeito natural" data-imagem="assets/img/trabalho-10.svg">
-            <img src="assets/img/trabalho-10.svg" alt="Extensão de pestanas com efeito natural" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Extensão de pestanas</span>
-          </button>
-        </li>
+
         <li class="galeria__item" data-area="cabelo">
-          <button class="galeria__botao" data-legenda="Madeixas babylights em louro frio" data-imagem="assets/img/trabalho-11.svg">
-            <img src="assets/img/trabalho-11.svg" alt="Madeixas finas em louro frio" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Babylights</span>
+          <button class="galeria__botao" data-legenda="Corte masculino com esbatido lateral" data-imagem="assets/img/trabalho-03.jpg">
+            <img src="assets/img/trabalho-03.jpg" alt="Corte masculino com esbatido nos lados, visto de perfil" width="760" height="760" loading="lazy">
+            <span class="galeria__legenda">Corte masculino esbatido</span>
           </button>
         </li>
+
+        <li class="galeria__item galeria__item--alto" data-area="tatuagem">
+          <button class="galeria__botao" data-legenda="Polvo em blackwork com pontilhismo, sessão única" data-imagem="assets/img/trabalho-04.jpg">
+            <img src="assets/img/trabalho-04.jpg" alt="Tatuagem de um polvo em blackwork, feita na coxa" width="800" height="1067" loading="lazy">
+            <span class="galeria__legenda">Polvo em blackwork</span>
+          </button>
+        </li>
+
         <li class="galeria__item" data-area="tatuagem">
-          <button class="galeria__botao" data-legenda="Cobertura de tatuagem antiga com desenho botânico" data-imagem="assets/img/trabalho-12.svg">
-            <img src="assets/img/trabalho-12.svg" alt="Cobertura de uma tatuagem antiga com um desenho botânico" width="600" height="600" loading="lazy">
-            <span class="galeria__legenda">Cobertura botânica</span>
+          <button class="galeria__botao" data-legenda="Bússola, veleiro e âncora em sombreado a preto e cinzento" data-imagem="assets/img/trabalho-05.jpg">
+            <img src="assets/img/trabalho-05.jpg" alt="Tatuagem de uma bússola com veleiro e âncora, feita no antebraço" width="760" height="760" loading="lazy">
+            <span class="galeria__legenda">Bússola e veleiro</span>
           </button>
         </li>
       </ul>
@@ -454,7 +422,7 @@
   "url": "https://www.solcabeleireiros.pt/",
   "telephone": "+351210000000",
   "email": "ola@solcabeleireiros.pt",
-  "image": "https://www.solcabeleireiros.pt/assets/img/og.svg",
+  "image": "https://www.solcabeleireiros.pt/assets/img/og.jpg",
   "priceRange": "€€",
   "currenciesAccepted": "EUR",
   "address": {

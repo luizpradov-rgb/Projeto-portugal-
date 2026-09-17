@@ -45,35 +45,64 @@ escreve-se `351912345678`.
 
 ### 2. As fotografias
 
-As imagens que lá estão são desenhos de marcador, feitos nas cores do site.
-Para as trocar por fotografias reais, basta **gravar a foto por cima do
-ficheiro com o mesmo nome**, dentro de `assets/img/`.
+As fotografias do salão já estão no site, tratadas e otimizadas. Faltam
+duas áreas, marcadas abaixo.
 
 | Ficheiro | Onde aparece | Formato |
 |---|---|---|
-| `heroi.svg` | topo da página | vertical, 3:4 |
-| `salao.svg` | secção «Doze anos na mesma rua» | vertical, 3:4 |
-| `serv-cabelo.svg` | serviço «Cabelo» | vertical, 3:4 |
-| `serv-unhas.svg` | serviço «Unhas» | vertical, 4:5 |
-| `serv-estetica.svg` | serviço «Estética» | vertical, 4:5 |
-| `tatuagem.svg` | secção «Tinta com tempo» | vertical, 3:4 |
-| `trabalho-01.svg` … `trabalho-12.svg` | galeria | ver abaixo |
-| `og.svg` | imagem que aparece ao partilhar o link | 1200 × 630 |
+| `heroi.jpg` | topo da página | vertical, 3:4 |
+| `salao.jpg` | secção «Doze anos na mesma rua» | vertical, 3:4 |
+| `serv-cabelo.jpg` | serviço «Cabelo» | vertical, 4:5 |
+| `serv-unhas.svg` | serviço «Unhas» — **falta fotografia** | vertical, 4:5 |
+| `serv-estetica.svg` | serviço «Estética» — **falta fotografia** | vertical, 4:5 |
+| `tatuagem.jpg` | secção «Tinta com tempo» | vertical, 3:4 |
+| `trabalho-01.jpg` … `trabalho-05.jpg` | galeria | ver abaixo |
+| `og.jpg` | imagem que aparece ao partilhar o link | 1200 × 630 |
 
-Na galeria, os números **01, 05 e 08** são altos (3:4) e os restantes
-quadrados (1:1). O site corta a foto ao tamanho certo, por isso o que
-interessa é que o motivo fique ao centro.
+Os dois ficheiros `.svg` são desenhos de marcador, feitos nas cores do
+site. Quando houver fotografias de unhas e de estética, substituem-se —
+e nessa altura muda-se também a extensão no `index.html`, de `.svg` para
+`.jpg`.
 
-Se as fotos forem `.jpg` (o normal), é preciso mudar também a extensão no
-`index.html`: procurar `trabalho-01.svg` e escrever `trabalho-01.jpg`. Cada
-fotografia aparece duas vezes na mesma linha — em `src` e em `data-imagem`.
+#### Acrescentar um trabalho à galeria
 
-**Antes de as pôr no site:** redimensionar para cerca de 1200 px do lado
-maior e gravar em JPEG com qualidade 80. Fotografias vindas do telemóvel
-têm 4 ou 5 MB e tornam o site lento no telemóvel de quem o visita.
+1. Tratar a fotografia (ver abaixo) e gravá-la em `assets/img/` como
+   `trabalho-06.jpg`, `trabalho-07.jpg`, e por aí fora.
+2. No `index.html`, na secção da galeria, copiar um bloco `<li>` inteiro e
+   mudar quatro coisas: `data-area`, o nome do ficheiro (aparece duas
+   vezes), o `alt` e a legenda.
+3. A classe `galeria__item--alto` é para fotografias verticais. Sem ela, a
+   fotografia aparece quadrada.
 
-Ao trocar uma fotografia, mudar também a descrição (`alt="…"`) que está
-nessa linha do `index.html`. É o que leem as pessoas invisuais e o Google.
+Se a área for **unhas** ou **estética**, é preciso ainda descomentar os
+dois botões de filtro que estão logo acima da galeria — ficaram lá
+preparados.
+
+#### Tratar as fotografias antes de as pôr no site
+
+Fotografias vindas do telemóvel têm 4 ou 5 MB e tornam o site lento para
+quem o visita — e trazem nos metadados o GPS de onde foram tiradas e o
+modelo do telemóvel. As que já estão no site foram reduzidas para cerca de
+1000 px do lado maior, gravadas em JPEG com qualidade 82 e limpas de
+metadados. As dez ocupam, juntas, pouco mais de 1 MB.
+
+O ficheiro `ferramentas/tratar-fotos.py` faz isto. Para o usar:
+
+```bash
+pip install Pillow
+python3 ferramentas/tratar-fotos.py
+```
+
+Dentro do ficheiro há uma lista que diz qual a fotografia de origem de
+cada imagem do site e onde fica o centro do recorte — é aí que se mexe
+para trocar ou reenquadrar uma fotografia.
+
+#### Uma nota sobre autorização
+
+As fotografias mostram clientes reais, e uma delas mostra um rosto. Em
+Portugal, publicar a imagem de alguém precisa do consentimento dessa
+pessoa, mesmo quando a fotografia é do trabalho do salão. Vale a pena
+garantir que está dado antes de o site ir para o ar.
 
 ### 3. Os textos
 
